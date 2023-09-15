@@ -1,6 +1,6 @@
 package hello.mylogin.config;
 
-import hello.mylogin.member.Member;
+import hello.mylogin.controller.MemberController;
 import hello.mylogin.member.MemberRepository;
 import hello.mylogin.member.MemoryMemberRepository;
 import hello.mylogin.service.MemberService;
@@ -19,6 +19,11 @@ public class MemberConfig {
     @Bean
     public MemberService memberService() {
         return new MemberService(memberRepository());
+    }
+
+    @Bean
+    public MemberController memberController() {
+        return new MemberController(memberService());
     }
 
 }

@@ -15,5 +15,33 @@ public class MemberService {
 
     public void addMember(Member member) {
         memberRepository.addMember(member);
+        log.info("저장 완료");
+
     }
+
+    public void deleteMember(Long id) {
+        memberRepository.deleteMember(id);
+        log.info("삭제 완료");
+    }
+
+    public void updateMember(Member member) {
+        memberRepository.updateMember(member);
+        log.info("수정 완료");
+    }
+
+    public Member findById(Long id) {
+        Member foundMember = memberRepository.findById(id);
+        log.info("검색 완료");
+
+        return foundMember;
+    }
+
+    public Member findByEmail(String email) {
+        Member foundMember = memberRepository.findByEmail(email);
+        log.info("검색 완료");
+
+        return foundMember;
+    }
+
+
 }

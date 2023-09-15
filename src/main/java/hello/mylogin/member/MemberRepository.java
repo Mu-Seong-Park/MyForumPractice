@@ -6,7 +6,7 @@ public interface MemberRepository {
     Member addMember(Member member);
 
     //멤버 수정
-    Member updateMember(Long id);
+    Member updateMember(Member updateMember);
 
     //멤버 삭제(데이터는 남겨두고 boolean 타입으로 삭제 제어
     void deleteMember(Long id);

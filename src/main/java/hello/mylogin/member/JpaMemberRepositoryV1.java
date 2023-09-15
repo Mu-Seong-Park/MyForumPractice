@@ -8,7 +8,7 @@ public class JpaMemberRepositoryV1 implements MemberRepository{
     }
 
     @Override
-    public Member updateMember(Long id) {
+    public Member updateMember(Member updateMember) {
         return null;
     }
 
