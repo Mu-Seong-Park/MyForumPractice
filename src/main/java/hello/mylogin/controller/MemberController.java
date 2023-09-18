@@ -4,6 +4,7 @@ import hello.mylogin.member.Member;
 import hello.mylogin.service.MemberService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +16,11 @@ public class MemberController {
     }
 
     @GetMapping("/sign_up")
+    public String addMemberForm() {
+
+    }
+
+    @PostMapping("/sign_up")
     public String addMember(Model model, HttpServletRequest request) {
 //        long id = Long.parseLong(request.getParameter("id"));
         String email = request.getParameter("email");
@@ -27,8 +33,9 @@ public class MemberController {
         member.setName(name);
         member.setDeleted(false);
 
-        memberService.addMember(member);
-        return "/home";
+        Member addedMember = memberService.addMember(member);
+        model.addAttribute("member",addedMember);
+        return "/login/loginForm";
     }
 
 

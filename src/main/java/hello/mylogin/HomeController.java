@@ -13,6 +13,5 @@ public class HomeController {
     public String home(HttpServletRequest request, Model model) {
 
         return "home";
-
     }
 }

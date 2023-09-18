@@ -13,10 +13,11 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public void addMember(Member member) {
-        memberRepository.addMember(member);
+    public Member addMember(Member member) {
+        Member registeredMember = memberRepository.addMember(member);
         log.info("저장 완료");
 
+        return registeredMember;
     }
 
     public void deleteMember(Long id) {
