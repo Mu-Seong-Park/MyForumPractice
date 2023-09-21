@@ -17,8 +17,8 @@ public class MemberController {
 
     @GetMapping("/sign_up")
     public String addMemberForm(Model model) {
-        model.addAttribute("member",);
-        return "/member/addMemberForm";
+        model.addAttribute("member",new Member());
+        return "member/addMemberForm";
     }
 
     @PostMapping("/sign_up")
@@ -36,7 +36,7 @@ public class MemberController {
 
         Member addedMember = memberService.addMember(member);
         model.addAttribute("member",addedMember);
-        return "/login/loginForm";
+        return "login/loginForm";
     }
 
 
