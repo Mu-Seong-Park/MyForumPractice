@@ -16,6 +16,7 @@ public class MemoryMemberRepository implements MemberRepository{
     public Member addMember(Member member) {
         member.setId(++sequence);
         store.put(member.getId(),member);
+        log.info("멤버 저장 완료, 이름 : {}, email : {} , password : {}",member.getName(), member.getEmail(), member.getPassword());
         return member;
     }
 
@@ -30,7 +31,7 @@ public class MemoryMemberRepository implements MemberRepository{
         member.setDeleted(false);
 
         store.put(member.getId(),member);
-
+        log.info("멤버 저장 완료, 이름 : {}, email : {} , password : {}",member.getName(), member.getEmail(), member.getPassword());
         return member;
     }
 

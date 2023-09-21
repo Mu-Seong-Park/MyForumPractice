@@ -9,14 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@Slf4j
 public class MemberConfig {
-    //repository를 리팩토링하기 위해서 빈을 직접 등록한다.
-
-    @Bean
-    public MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
-    }
+    //repository를 리팩토링하기 위해서 빈을 수동 등록한다.
 
     @Bean
     public MemberService memberService() {
@@ -24,9 +18,12 @@ public class MemberConfig {
     }
 
     @Bean
-    public MemberController memberController() {
-        log.info("Controller Bean 등록");
-        return new MemberController(memberService());
+    public MemberRepository memberRepository() {
+        return new MemoryMemberRepository();
     }
+
+
+
+
 
 }
