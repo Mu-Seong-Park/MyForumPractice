@@ -1,6 +1,7 @@
 package hello.mylogin.controller;
 
 import hello.mylogin.member.Member;
+import hello.mylogin.member.Role;
 import hello.mylogin.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +38,7 @@ public class MemberController {
         member.setPassword(password);
         member.setName(name);
         member.setDeleted(false);
+        member.setRole(Role.BASIC);
 
         Member addedMember = memberService.addMember(member);
         model.addAttribute("member",addedMember);

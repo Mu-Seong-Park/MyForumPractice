@@ -17,4 +17,5 @@ public class Member {
 
     private boolean isDeleted;
 
+    private Role role;
 }
