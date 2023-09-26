@@ -11,36 +11,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/members")
-public class MemberController {
+public class LoginController {
 
     private final MemberService memberService;
-    public MemberController(MemberService memberService) {
+    public LoginController(MemberService memberService) {
         this.memberService = memberService;
     }
 
-    @GetMapping("/sign_up")
-    public String addMemberForm(Model model) {
+
+    @GetMapping("/login")
+    public String loginForm(Model model) {
         model.addAttribute("member",new Member());
-        return "member/addMemberForm";
+        return "login/loginForm";
     }
 
-    @PostMapping("/sign_up")
-    public String addMember(Model model, HttpServletRequest request) {
+    @PostMapping("/login")
+    public String login(Model model, HttpServletRequest request) {
 //        long id = Long.parseLong(request.getParameter("id"));
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String name = request.getParameter("name");
 
-        Member member = new Member();
-        member.setEmail(email);
-        member.setPassword(password);
-        member.setName(name);
-        member.setDeleted(false);
+        Member loginMember = memberService.findByEmail(email);
+        if(loginMember.getPassword().equals(password)) {
+            model.addAttribute("member",loginMember);
+            return "redirect:/";
+        }
 
-        Member addedMember = memberService.addMember(member);
-        model.addAttribute("member",addedMember);
-        return "redirect:/login";
+        return "login/loginForm";
     }
-
 }
