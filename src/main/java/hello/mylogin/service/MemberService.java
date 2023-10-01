@@ -4,6 +4,8 @@ import hello.mylogin.member.Member;
 import hello.mylogin.member.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Optional;
+
 @Slf4j
 public class MemberService {
 
@@ -37,8 +39,8 @@ public class MemberService {
         return foundMember;
     }
 
-    public Member findByEmail(String email) {
-        Member foundMember = memberRepository.findByEmail(email);
+    public Optional<Member> findByEmail(String email) {
+        Optional<Member> foundMember = memberRepository.findByEmail(email);
         log.info("검색 완료");
 
         return foundMember;

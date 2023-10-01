@@ -10,17 +10,18 @@
     <div class="text-center py-3">
         <h3>홈페이지</h3>
     </div>
+    <h4 class="mb-3" th:text="|로그인: ${member.name}|">로그인 사용자 이름</h4>
     <div class="text-center py-3">
         <div class="row">
             <div class="col">
                 <button type="button" class="btn btn-primary w-75"
-                        th:onclick="|location.href='@{/login}'|" >
-                    로그인
+                        th:onclick="|location.href='@{/forum}'|" >
+                    게시판
                 </button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-secondary w-75"
-                        th:onclick="|location.href='@{/logout}'|">
+                <form th:action="@{/logout}" method="post">
+                <button class="btn btn-secondary w-75" type="submit">
                     로그아웃
                 </button>
             </div>

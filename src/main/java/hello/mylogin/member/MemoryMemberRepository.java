@@ -2,8 +2,7 @@ package hello.mylogin.member;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class MemoryMemberRepository implements MemberRepository{
@@ -47,14 +46,14 @@ public class MemoryMemberRepository implements MemberRepository{
         return store.get(id);
     }
 
+    public List<Member> findAll() {
+        return new ArrayList<>(store.values());
+    }
+
     @Override
-    public Member findByEmail(String email) {
-        for (Member member : store.values()) {
-            if(member.getEmail().equals(email)) {
-                return member;
-            }
-        }
-        log.info("찾을 수 없는 회원 입니다.");
-        return null;
+    public Optional<Member> findByEmail(String email) {
+        return findAll().stream()
+                .filter(m -> m.getEmail().equals(email))
+                .findFirst();
     }
 }

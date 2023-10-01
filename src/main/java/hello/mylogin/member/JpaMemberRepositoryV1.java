@@ -1,5 +1,7 @@
 package hello.mylogin.member;
 
+import java.util.Optional;
+
 public class JpaMemberRepositoryV1 implements MemberRepository{
 
     @Override
@@ -23,7 +25,7 @@ public class JpaMemberRepositoryV1 implements MemberRepository{
     }
 
     @Override
-    public Member findByEmail(String email) {
+    public Optional<Member> findByEmail(String email) {
         return null;
     }
 }

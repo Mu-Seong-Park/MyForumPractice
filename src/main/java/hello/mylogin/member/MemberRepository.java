@@ -1,5 +1,7 @@
 package hello.mylogin.member;
 
+import java.util.Optional;
+
 public interface MemberRepository {
 
     //멤버 등록
@@ -13,5 +15,5 @@ public interface MemberRepository {
 
     //멤버 찾기
     Member findById(Long id);
-    Member findByEmail(String email);
+    Optional<Member> findByEmail(String email);
 }
