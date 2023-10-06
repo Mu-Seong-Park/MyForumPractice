@@ -1,6 +1,7 @@
 package hello.mylogin.controller;
 
 import hello.mylogin.config.SessionConst;
+import hello.mylogin.member.LoginDto;
 import hello.mylogin.member.Member;
 import hello.mylogin.service.LoginService;
 import hello.mylogin.service.MemberService;
@@ -30,24 +31,23 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginForm(Model model) {
-        model.addAttribute("member",new Member());
+        model.addAttribute("loginDto",new LoginDto());
         return "login/loginForm";
     }
 
     @PostMapping("/login")
-    public String login(Model model,@ModelAttribute String email,
-                        @ModelAttribute String password, BindingResult bindingResult, HttpServletRequest request) {
+    public String login(Model model, @ModelAttribute LoginDto loginDto, BindingResult bindingResult, HttpServletRequest request) {
 //        long id = Long.parseLong(request.getParameter("id"));
 
-        Member loginMember = loginService.login(email,password);
+        Member loginMember = loginService.login(loginDto.getEmail(),loginDto.getPassword());
+
 
         if(loginMember == null) {
             bindingResult.reject("loginFail", "아이디 혹은 비밀번호가 맞지 않습니다.");
             return "login/loginForm";
         }
 
-        HttpSession session = request.getSession();
-
+        HttpSession session = request.getSession(true);
         session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember);
         return "redirect:/";
     }
