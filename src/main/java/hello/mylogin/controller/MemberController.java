@@ -2,41 +2,50 @@ package hello.mylogin.controller;
 
 import hello.mylogin.member.Member;
 import hello.mylogin.member.MemberDto;
+import hello.mylogin.member.MemberValidator;
 import hello.mylogin.member.Role;
 import hello.mylogin.service.MemberService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/members")
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
-    public MemberController(MemberService memberService) {
+    private final MemberValidator memberValidator;
+
+    public MemberController(MemberService memberService, MemberValidator memberValidator) {
         this.memberService = memberService;
+        this.memberValidator = memberValidator;
     }
 
     @GetMapping("/sign_up")
     public String addMemberForm(Model model) {
-        model.addAttribute("member",new Member());
+        model.addAttribute("memberDto",new MemberDto());
         return "member/addMemberForm";
     }
 
     @PostMapping("/sign_up")
     public String addMember(@ModelAttribute MemberDto memberDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        if(!StringUtils.hasText(memberDto.getEmail()) || !StringUtils.hasText(memberDto.getPassword()) || !StringUtils.hasText(memberDto.getName())) {
-            bindingResult.addError(new FieldError("member","member"));
+        memberValidator.validate(memberDto,bindingResult);
+
+        if(bindingResult.hasErrors()) {
+            log.info("errors = {}",bindingResult);
+            return "member/addMemberForm";
         }
 
         Member member = new Member();
@@ -46,12 +55,13 @@ public class MemberController {
         member.setDeleted(false);
         member.setRole(Role.BASIC);
 
-        Member addedMember = memberService.addMember(member);
-        if(addedMember == null) {
+        Optional<Member> addedMember = memberService.addMember(member);
+
+        if(addedMember.isEmpty()) {
+            bindingResult.addError(new FieldError("memberDto","email","이미 사용중인 ID(이메일)입니다."));
             return "member/addMemberForm";
         }
 
-        model.addAttribute("member",addedMember);
         return "redirect:/login";
     }
 

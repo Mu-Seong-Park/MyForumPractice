@@ -15,8 +15,8 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public Member addMember(Member member) {
-        Member registeredMember = memberRepository.addMember(member);
+    public Optional<Member> addMember(Member member) {
+        Optional<Member> registeredMember = memberRepository.addMember(member);
         log.info("저장 완료");
 
         return registeredMember;

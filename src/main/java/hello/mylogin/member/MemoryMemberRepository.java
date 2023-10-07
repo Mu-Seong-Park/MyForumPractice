@@ -12,17 +12,18 @@ public class MemoryMemberRepository implements MemberRepository{
 
 
     @Override
-    public Member addMember(Member member) {
+    public Optional<Member> addMember(Member member) {
 
         if(findByEmail(member.getEmail()).isPresent()) {
             log.info("이미 존재하는 회원입니다.");
-            return null;
+            return Optional.empty();
         }
 
         member.setId(++sequence);
         store.put(member.getId(),member);
         log.info("멤버 저장 완료, 이름 : {}, email : {} , password : {}",member.getName(), member.getEmail(), member.getPassword());
-        return member;
+        Optional<Member> addedMember = Optional.of(member);
+        return addedMember;
     }
 
     @Override

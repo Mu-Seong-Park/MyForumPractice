@@ -5,7 +5,7 @@ import java.util.Optional;
 public interface MemberRepository {
 
     //멤버 등록
-    Member addMember(Member member);
+    Optional<Member> addMember(Member member);
 
     //멤버 수정
     Member updateMember(Member updateMember);

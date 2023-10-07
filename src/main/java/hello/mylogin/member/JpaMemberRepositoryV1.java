@@ -5,7 +5,7 @@ import java.util.Optional;
 public class JpaMemberRepositoryV1 implements MemberRepository{
 
     @Override
-    public Member addMember(Member member) {
+    public Optional<Member> addMember(Member member) {
         return null;
     }
 
