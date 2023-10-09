@@ -2,9 +2,7 @@ package hello.mylogin.forum.post;
 
 import hello.mylogin.member.Member;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class MemoryPostRepository implements PostRepository {
 
@@ -25,6 +23,11 @@ public class MemoryPostRepository implements PostRepository {
     @Override
     public void deletePost(Long id, Long forumUserId) {
 
+    }
+
+    @Override
+    public List<Post> findAll() {
+        return new ArrayList<>(store.values());
     }
 
     @Override

@@ -1,8 +1,11 @@
 package hello.mylogin.config;
 
 import hello.mylogin.controller.MemberController;
+import hello.mylogin.forum.post.MemoryPostRepository;
+import hello.mylogin.forum.post.PostRepository;
 import hello.mylogin.member.MemberRepository;
 import hello.mylogin.member.MemoryMemberRepository;
+import hello.mylogin.service.ForumService;
 import hello.mylogin.service.LoginService;
 import hello.mylogin.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +27,18 @@ public class MemberConfig {
     }
 
     @Bean
+    public PostRepository postRepository() {
+        return new MemoryPostRepository();
+    }
+
+    @Bean
     public LoginService loginService() {
         return new LoginService(memberRepository());
+    }
+
+    @Bean
+    public ForumService forumService() {
+        return new ForumService(postRepository());
     }
 
 

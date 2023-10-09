@@ -19,5 +19,7 @@ public class Post {
 
     private Date writtenDate;
 
+    private Date updateDate;
+
     private boolean isDeleted;
 }
