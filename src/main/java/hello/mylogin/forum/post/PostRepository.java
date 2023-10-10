@@ -17,7 +17,6 @@ public interface PostRepository {
 
     //게시글 찾기
     Post findById(Long id);
-    Optional<Member> findByUserId(Long forumUserId);
 
     List<Post> findAll();
 }

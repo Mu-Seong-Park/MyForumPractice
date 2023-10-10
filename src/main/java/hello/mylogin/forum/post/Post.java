@@ -15,6 +15,8 @@ public class Post {
 
     private String forumUserName;
 
+    private String title;
+
     private String contents;
 
     private Date writtenDate;

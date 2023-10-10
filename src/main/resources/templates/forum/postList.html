@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <title>자유 게시판</title>
+  <style>
+    .field-error{
+      border-color: #dc3540;
+      color: #dc3540;
+    }
+  </style>
+</head>
+<body>
+<div class="container-fluid" style="max-width: 1000px">
+  <div class="text-center py-3">
+    <h3>자유 게시판</h3>
+  </div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>글 번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성 날짜</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each = "board:${postList}">
+          <td th:text="${board.id}">1</td>
+          <td th:text="${board.title}">제목입니다.</td>
+          <td th:text="${board.forumUserName}">작성자</td>
+          <td th:text="${board.writtenDate}">작성 날짜</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+      `
+  </div>
+</div>
+</body>
+</html>

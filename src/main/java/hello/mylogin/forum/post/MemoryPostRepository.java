@@ -12,16 +12,25 @@ public class MemoryPostRepository implements PostRepository {
 
     @Override
     public Post addPost(Post post) {
-        return null;
+        post.setId(++sequence);
+        store.put(post.getId(),post);
+        return post;
     }
 
     @Override
     public Post updatePost(Post updatePost) {
-        return null;
+        Post prePost = store.get(updatePost.getId());
+        prePost.setContents(updatePost.getContents());
+        prePost.setUpdateDate(new Date());
+        return prePost;
     }
 
     @Override
     public void deletePost(Long id, Long forumUserId) {
+        Post targetPost = store.get(id);
+        if(targetPost.getForumUserId() == forumUserId) {
+            targetPost.setDeleted(true);
+        }
 
     }
 
@@ -35,8 +44,6 @@ public class MemoryPostRepository implements PostRepository {
         return null;
     }
 
-    @Override
-    public Optional<Member> findByUserId(Long forumUserId) {
-        return Optional.empty();
-    }
+    //추가할 기능 : 검색 결과를 보여줄 때 무엇을 기준으로 할지 (user id , 제목 , 컨텐츠 내용)
+
 }
