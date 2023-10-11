@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>글쓰기</title>
+    <style>
+        .field-error{
+            border-color: #dc3540;
+            color: #dc3540;
+        }
+    </style>
+</head>
+<body>
+<form th:action th:object="${post}" method="post">
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">오류 메세지</p>
+    </div>
+    <div>
+        <label for="title">제목</label>
+        <input type="text" id="title" th:field="*{title}" class="form-control">
+        <div class="field-error" th:errors="*{title}" />
+    </div>
+
+    <div>
+        <label for="contents">본문</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="contents" th:field="*{contents}" placeholder="내용을 입력해 주세요."></textarea>
+        </div>
+        <div class="field-error" th:errors="*{contents}" />
+    </div>
+
+    <hr class="my-3">
+    <div class="row">
+        <div class="col">
+            <button class="w-50 btn btn-secondary btn-lg"
+                    th:onclick="|location.href='@{/forum}'|"
+                    type="button">취소</button>
+        </div>
+        <div class="col">
+            <button class="w-50 btn btn-primary btn-lg" type="submit">
+                등록</button>
+        </div>
+
+    </div>
+</form>
+
+</body>
+</html>

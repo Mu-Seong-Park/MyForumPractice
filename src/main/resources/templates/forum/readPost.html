@@ -4,17 +4,12 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <title>글 제목</title>
-    <style>
-        .field-error{
-            border-color: #dc3540;
-            color: #dc3540;
-        }
-    </style>
 </head>
 <body>
 <div class="container-fluid" style="max-width: 1000px">
     <div class="text-center py-3">
-        <h3>자유 게시판</h3>
+        <label for="title">제목</label>
+        <input type="text" id="title" th:field="*{title}" class="form-control">
     </div>
     <div>
 

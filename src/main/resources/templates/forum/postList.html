@@ -37,7 +37,14 @@
     </table>
   </div>
   <div>
-      `
+    <div>
+      <button class="w-25 btn btn-primary btn-lg" th:onclick="|location.href='@{/forum/write}'|">
+      글 쓰기</button>
+    </div>
+    <div>
+      <input type="text" name="searchKeyword">
+      <button type="submit">검색</button>
+    </div>
   </div>
 </div>
 </body>

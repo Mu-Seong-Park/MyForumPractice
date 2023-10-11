@@ -3,6 +3,7 @@ package hello.mylogin.forum.post;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -19,9 +20,9 @@ public class Post {
 
     private String contents;
 
-    private Date writtenDate;
+    private LocalDateTime writtenDate;
 
-    private Date updateDate;
+    private LocalDateTime updateDate;
 
     private boolean isDeleted;
 }

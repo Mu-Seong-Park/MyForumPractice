@@ -1,7 +1,6 @@
 package hello.mylogin.forum.post;
 
-import hello.mylogin.member.Member;
-
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class MemoryPostRepository implements PostRepository {
@@ -11,8 +10,10 @@ public class MemoryPostRepository implements PostRepository {
 
 
     @Override
-    public Post addPost(Post post) {
+    public Post addPost(Post post, String userName) {
         post.setId(++sequence);
+        post.setWrittenDate(LocalDateTime.now());
+        post.setForumUserName(userName);
         store.put(post.getId(),post);
         return post;
     }
@@ -21,7 +22,7 @@ public class MemoryPostRepository implements PostRepository {
     public Post updatePost(Post updatePost) {
         Post prePost = store.get(updatePost.getId());
         prePost.setContents(updatePost.getContents());
-        prePost.setUpdateDate(new Date());
+        prePost.setUpdateDate(LocalDateTime.now());
         return prePost;
     }
 

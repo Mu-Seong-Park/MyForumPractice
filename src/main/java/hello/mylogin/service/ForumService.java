@@ -16,8 +16,8 @@ public class ForumService {
         this.postRepository = postRepository;
     }
 
-    public Post writePost(Post post) {
-        Post newPost = postRepository.addPost(post);
+    public Post writePost(Post post,String userName) {
+        Post newPost = postRepository.addPost(post,userName);
         log.info("글쓰기 완료");
 
         return newPost;
