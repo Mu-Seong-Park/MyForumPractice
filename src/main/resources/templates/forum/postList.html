@@ -27,11 +27,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each = "board:${postList}">
-          <td th:text="${board.id}">1</td>
-          <td th:text="${board.title}">제목입니다.</td>
-          <td th:text="${board.forumUserName}">작성자</td>
-          <td th:text="${board.writtenDate}">작성 날짜</td>
+        <tr th:each = "post:${postList}">
+          <td th:text="${post.id}">1</td>
+          <td >
+            <a th:text="${post.title}" th:href='@{/forum/post(id=${post.id})}'></a>
+          </td>
+          <td th:text="${post.forumUserName}">작성자</td>
+          <td th:text="${post.writtenDate}">작성 날짜</td>
         </tr>
       </tbody>
     </table>

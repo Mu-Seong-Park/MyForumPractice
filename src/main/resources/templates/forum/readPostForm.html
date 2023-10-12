@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <title>글 제목</title>
+</head>
+<body>
+<div class="container-fluid" style="max-width: 1000px" th:object="${post}">
+    <div class="text-center py-3">
+        <label for="title">제목</label>
+        <input type="text" id="title" readonly="readonly" th:field="*{title}" class="form-control">
+    </div>
+    <div>
+        <label for="contents">내용</label>
+        <input type="text" id="contents" readonly="readonly" th:field="*{contents}" class="form-control">
+    </div>
+</div>
+<hr class="my-3">
+<div class="row">
+    <div class="col">
+        <button class="w-50 btn btn-primary btn-lg"
+                th:onclick="|location.href='@{/forum/update(id=${post.id})}'|"
+                type="button">
+            수정
+        </button>
+    </div>
+
+    <div class="col">
+        <button class="w-50 btn btn-secondary btn-lg"
+                th:onclick="|location.href='@{/forum}'|"
+                type="button">글 목록</button>
+    </div>
+</div>
+</body>
+</html>

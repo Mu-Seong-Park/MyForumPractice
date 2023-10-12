@@ -10,7 +10,7 @@ public interface PostRepository {
     Post addPost(Post post, String userName);
 
     //게시글 수정
-    Post updatePost(Post updatePost);
+    Post updatePost(Long id, Post updatePost);
 
     //게시글 삭제(데이터는 남겨두고 boolean 타입으로 삭제 제어)
     void deletePost(Long id, Long forumUserId);

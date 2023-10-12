@@ -28,9 +28,13 @@ public class ForumService {
         log.info("삭제 완료");
     }
 
-    public void updatePost(Post update) {
-        postRepository.updatePost(update);
+    public void updatePost(Long id , Post update) {
+        postRepository.updatePost(id ,update);
         log.info("수정 완료");
+    }
+
+    public Post findPostById(Long id) {
+        return postRepository.findById(id);
     }
 
     public List<Post> findAll() {

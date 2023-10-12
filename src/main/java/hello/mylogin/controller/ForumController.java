@@ -10,10 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -68,5 +65,28 @@ public class ForumController {
         return "redirect:/forum";
     }
 
-    @GetMapping("/")
+    @GetMapping("/post")
+    public String readPost(@RequestParam("id") Long id , Model model) {
+
+        Post foundPost = forumService.findPostById(id);
+        model.addAttribute("post",foundPost);
+
+        return "forum/readPostForm";
+    }
+
+    @GetMapping("/update")
+    public String updatePostForm(@RequestParam("id") Long id , Model model) {
+
+        Post foundPost = forumService.findPostById(id);
+        model.addAttribute("post",foundPost);
+
+        return "forum/updatePostForm";
+    }
+    @PostMapping("/update")
+    public String updatePost(@RequestParam("id") Long id , Post updatePost) {
+
+        forumService.updatePost(id, updatePost);
+        log.info("updatePost의 content : {}",updatePost.getContents());
+        return "forum/readPostForm";
+    }
 }

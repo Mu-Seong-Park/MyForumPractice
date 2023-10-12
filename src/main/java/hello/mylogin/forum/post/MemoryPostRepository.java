@@ -19,8 +19,9 @@ public class MemoryPostRepository implements PostRepository {
     }
 
     @Override
-    public Post updatePost(Post updatePost) {
-        Post prePost = store.get(updatePost.getId());
+    public Post updatePost(Long id, Post updatePost) {
+        Post prePost = store.get(id);
+        prePost.setTitle(updatePost.getTitle());
         prePost.setContents(updatePost.getContents());
         prePost.setUpdateDate(LocalDateTime.now());
         return prePost;
@@ -42,7 +43,7 @@ public class MemoryPostRepository implements PostRepository {
 
     @Override
     public Post findById(Long id) {
-        return null;
+        return store.get(id);
     }
 
     //추가할 기능 : 검색 결과를 보여줄 때 무엇을 기준으로 할지 (user id , 제목 , 컨텐츠 내용)
