@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface PostRepository {
     //게시글 등록
-    Post addPost(Post post, String userName);
+    Post addPost(Post post, Long userId, String userName);
 
     //게시글 수정
     Post updatePost(Long id, Post updatePost);

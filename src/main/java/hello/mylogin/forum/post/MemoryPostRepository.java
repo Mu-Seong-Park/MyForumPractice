@@ -10,9 +10,10 @@ public class MemoryPostRepository implements PostRepository {
 
 
     @Override
-    public Post addPost(Post post, String userName) {
+    public Post addPost(Post post, Long userId,String userName) {
         post.setId(++sequence);
         post.setWrittenDate(LocalDateTime.now());
+        post.setForumUserId(userId);
         post.setForumUserName(userName);
         store.put(post.getId(),post);
         return post;

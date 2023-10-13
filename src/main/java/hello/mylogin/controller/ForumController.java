@@ -60,26 +60,48 @@ public class ForumController {
         }
 
         String loginMemberName = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER) ).getName();
-        forumService.writePost(post,loginMemberName);
+        Long loginMemberId = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER)).getId();
+        forumService.writePost(post,loginMemberId, loginMemberName);
 
         return "redirect:/forum";
     }
 
     @GetMapping("/post")
-    public String readPost(@RequestParam("id") Long id , Model model) {
+    public String readPost(@RequestParam("id") Long id , Model model, HttpServletRequest request) {
 
         Post foundPost = forumService.findPostById(id);
         model.addAttribute("post",foundPost);
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            return "redirect:/login";
+        }
 
+        Long loginMemberId = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER)).getId();
+        model.addAttribute("writerId",loginMemberId);
         return "forum/readPostForm";
     }
 
     @GetMapping("/update")
-    public String updatePostForm(@RequestParam("id") Long id , Model model) {
+    public String updatePostForm(@RequestParam("id") Long id , Model model, HttpServletRequest request) {
 
         Post foundPost = forumService.findPostById(id);
+        log.info("작성자 : {}",foundPost.getForumUserId());
         model.addAttribute("post",foundPost);
+        Member writer = memberService.findById(foundPost.getForumUserId());
 
+        HttpSession session = request.getSession(false);
+
+        if(session == null) {
+            return "redirect:/login";
+        }
+
+        Long loginMemberId = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER)).getId();
+        log.info("현재 로그인한 id : {}",loginMemberId);
+        if(writer.getId() != loginMemberId)
+        {
+            //로그인 id 유효성 검사 로직.
+
+        }
         return "forum/updatePostForm";
     }
     @PostMapping("/update")
@@ -88,5 +110,32 @@ public class ForumController {
         forumService.updatePost(id, updatePost);
         log.info("updatePost의 content : {}",updatePost.getContents());
         return "forum/readPostForm";
+    }
+
+    @GetMapping("/delete")
+    public String deletePost(@RequestParam("id") Long id , Model model, HttpServletRequest request) {
+
+        Post foundPost = forumService.findPostById(id);
+        Member writer = memberService.findById(foundPost.getForumUserId());
+
+        HttpSession session = request.getSession(false);
+
+        if(session == null) {
+            return "redirect:/login";
+        }
+
+        Long loginMemberId = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER)).getId();
+        log.info("현재 로그인한 id : {}",loginMemberId);
+        if(writer.getId() != loginMemberId)
+        {
+            //로그인 id 유효성 검사 로직.
+            //다르다면 접근권한 없다고 팝업 띄우고 리스트로.
+
+        }
+
+        forumService.deletePost(id, loginMemberId);
+
+
+        return "forum/postList";
     }
 }
