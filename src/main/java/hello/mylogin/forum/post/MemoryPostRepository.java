@@ -50,4 +50,15 @@ public class MemoryPostRepository implements PostRepository {
 
     //추가할 기능 : 검색 결과를 보여줄 때 무엇을 기준으로 할지 (user id , 제목 , 컨텐츠 내용)
 
+    @Override
+    public List<Post> findByTitle(String keyword) {
+        List<Post> result = new ArrayList<>();
+        for (Post target : store.values()) {
+            if(target.getTitle().contains(keyword)) {
+                result.add(target);
+            }
+        }
+        return result;
+    }
+
 }

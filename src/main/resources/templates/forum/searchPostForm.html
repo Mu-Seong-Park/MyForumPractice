@@ -12,42 +12,44 @@
     </style>
 </head>
 <body>
-<div class="container-fluid" style="max-width: 1000px">
-    <div class="text-center py-3">
-        <h3>검색 결과</h3>
-    </div>
-    <div>
-        <table>
-            <thead>
-            <tr>
-                <th>글 번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성 날짜</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each = "post:${postList}" th:unless="${post.deleted}">
-                <td th:text="${post.id}">1</td>
-                <td >
-                    <a th:text="${post.title}" th:href='@{/forum/post(id=${post.id})}'></a>
-                </td>
-                <td th:text="${post.forumUserName}">작성자</td>
-                <td th:text="${post.writtenDate}">작성 날짜</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <div>
-            <button class="w-25 btn btn-primary btn-lg" th:onclick="|location.href='@{/forum/write}'|">
-                글 쓰기</button>
+    <div class="container-fluid" style="max-width: 1000px">
+        <div class="text-center py-3">
+            <h3>검색 결과</h3>
         </div>
         <div>
-            <input type="text" name="searchKeyword">
-            <button type="submit">검색</button>
+            <table>
+                <thead>
+                <tr>
+                    <th>글 번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성 날짜</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each = "post:${postList}" th:unless="${post.deleted}">
+                    <td th:text="${post.id}">1</td>
+                    <td >
+                        <a th:text="${post.title}" th:href='@{/forum/post(id=${post.id})}'></a>
+                    </td>
+                    <td th:text="${post.forumUserName}">작성자</td>
+                    <td th:text="${post.writtenDate}">작성 날짜</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <div>
+                <button class="w-25 btn btn-primary btn-lg" th:onclick="|location.href='@{/forum/write}'|">
+                    글 쓰기</button>
+            </div>
+            <form th:action method="get">
+                <div>
+                    <input type="text" name="keyword">
+                    <button type="submit">검색</button>
+                </div>
+            </form>
         </div>
     </div>
-</div>
 </body>
 </html>

@@ -2,11 +2,10 @@ package hello.mylogin.service;
 
 import hello.mylogin.forum.post.Post;
 import hello.mylogin.forum.post.PostRepository;
-import hello.mylogin.member.Member;
+import hello.mylogin.forum.post.SearchPostDto;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 public class ForumService {
@@ -42,5 +41,12 @@ public class ForumService {
         log.info("전체 검색 완료");
 
         return postRepository.findAll();
+    }
+
+    public List<Post> searchPost(String keyword) {
+
+        log.info("일부 검색 완료");
+
+        return postRepository.findByTitle(keyword);
     }
 }

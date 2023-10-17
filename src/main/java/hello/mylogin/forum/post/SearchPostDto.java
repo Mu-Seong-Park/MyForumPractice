@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class searchPostDto {
+public class SearchPostDto {
     private String keyword;
     private String type;
 }

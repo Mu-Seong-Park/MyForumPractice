@@ -27,4 +27,9 @@ public class JpaPostRepositoryV1 implements PostRepository {
     public List<Post> findAll() {
         return null;
     }
+
+    @Override
+    public List<Post> findByTitle(String keyword) {
+        return null;
+    }
 }

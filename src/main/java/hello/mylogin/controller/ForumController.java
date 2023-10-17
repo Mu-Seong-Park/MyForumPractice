@@ -3,6 +3,7 @@ package hello.mylogin.controller;
 import hello.mylogin.config.SessionConst;
 import hello.mylogin.forum.post.Post;
 import hello.mylogin.forum.post.PostValidator;
+import hello.mylogin.forum.post.SearchPostDto;
 import hello.mylogin.member.Member;
 import hello.mylogin.service.ForumService;
 import hello.mylogin.service.MemberService;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -46,7 +48,7 @@ public class ForumController {
     }
 
     @PostMapping("/write")
-    public String writePost (@ModelAttribute Post post, BindingResult bindingResult, Model model, HttpServletRequest request) {
+    public String writePost (@ModelAttribute Post post, BindingResult bindingResult, HttpServletRequest request) {
 
         postValidator.validate(post,bindingResult);
 
@@ -140,4 +142,12 @@ public class ForumController {
 
         return "redirect:/forum";
     }
+
+    @GetMapping("/search")
+    public String searchPostForm(@RequestParam(value = "keyword",required = false) String keyword, Model model) {
+        List<Post> searchPostList = forumService.searchPost(keyword);
+        model.addAttribute("postList",searchPostList);
+        return "forum/searchPostForm";
+    }
+
 }

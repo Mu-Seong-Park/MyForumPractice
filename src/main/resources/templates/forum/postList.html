@@ -43,10 +43,10 @@
       <button class="w-25 btn btn-primary btn-lg" th:onclick="|location.href='@{/forum/write}'|">
       글 쓰기</button>
     </div>
-    <form th:action th:object="${memberDto}" method="post">
+    <form th:action="@{/forum/search}"  method="get">
       <div>
-        <input type="text" name="searchKeyword">
-        <button type="submit" th:onclick="|location.href='@{/forum/write}'|">검색</button>
+        <input type="text" name="keyword">
+        <button type="submit">검색</button>
       </div>
     </form>
   </div>
