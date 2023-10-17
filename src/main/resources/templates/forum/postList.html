@@ -27,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each = "post:${postList}">
+        <tr th:each = "post:${postList}" th:unless="${post.deleted}">
           <td th:text="${post.id}">1</td>
           <td >
             <a th:text="${post.title}" th:href='@{/forum/post(id=${post.id})}'></a>
@@ -43,10 +43,12 @@
       <button class="w-25 btn btn-primary btn-lg" th:onclick="|location.href='@{/forum/write}'|">
       글 쓰기</button>
     </div>
-    <div>
-      <input type="text" name="searchKeyword">
-      <button type="submit">검색</button>
-    </div>
+    <form th:action th:object="${memberDto}" method="post">
+      <div>
+        <input type="text" name="searchKeyword">
+        <button type="submit" th:onclick="|location.href='@{/forum/write}'|">검색</button>
+      </div>
+    </form>
   </div>
 </div>
 </body>

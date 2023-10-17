@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -105,11 +106,12 @@ public class ForumController {
         return "forum/updatePostForm";
     }
     @PostMapping("/update")
-    public String updatePost(@RequestParam("id") Long id , Post updatePost) {
+    public String updatePost(@RequestParam("id") Long id , Post updatePost, RedirectAttributes redirectAttributes) {
 
         forumService.updatePost(id, updatePost);
         log.info("updatePost의 content : {}",updatePost.getContents());
-        return "forum/readPostForm";
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/forum/post";
     }
 
     @GetMapping("/delete")
@@ -136,6 +138,6 @@ public class ForumController {
         forumService.deletePost(id, loginMemberId);
 
 
-        return "forum/postList";
+        return "redirect:/forum";
     }
 }

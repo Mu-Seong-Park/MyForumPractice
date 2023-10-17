@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -25,4 +24,6 @@ public class Post {
     private LocalDateTime updateDate;
 
     private boolean isDeleted;
+
+    private boolean isUpdated;
 }

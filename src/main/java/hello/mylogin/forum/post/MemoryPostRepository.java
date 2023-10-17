@@ -25,6 +25,7 @@ public class MemoryPostRepository implements PostRepository {
         prePost.setTitle(updatePost.getTitle());
         prePost.setContents(updatePost.getContents());
         prePost.setUpdateDate(LocalDateTime.now());
+        prePost.setUpdated(true);
         return prePost;
     }
 

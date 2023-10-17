@@ -11,6 +11,18 @@
         <label for="title">제목</label>
         <input type="text" id="title" readonly="readonly" th:field="*{title}" class="form-control">
     </div>
+    <div class="text-center py-3">
+        <label for="user">작성자</label>
+        <input type="text" id="user" readonly="readonly" th:field="*{forumUserName}" class="form-control">
+    </div>
+    <div class="text-center py-3">
+        <label for="date">작성 날짜</label>
+        <input type="text" id="date" readonly="readonly" th:field="*{writtenDate}" class="form-control">
+    </div>
+    <div class="text-center py-3" th:if="*{updated}">
+        <label for="updateDate">수정 날짜</label>
+        <input type="text" id="updateDate" readonly="readonly" th:field="*{updateDate}" class="form-control">
+    </div>
     <div>
         <label for="contents">내용</label>
         <input type="text" id="contents" readonly="readonly" th:field="*{contents}" class="form-control">
