@@ -1,5 +1,5 @@
 # MyForumPractice
-Making a forum to adapt Spring Framework 
+Making a forum to get used to Spring Framework(and Thymeleaf etc).
 
 # 목표
 1. 포스트 검색기능 구현하기.
