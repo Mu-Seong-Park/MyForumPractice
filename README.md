@@ -2,7 +2,6 @@
 Making a forum to get used to Spring Framework(and Thymeleaf etc).
 
 # 목표
-1. DB에 회원을 저장하고 관리하기.
 2. DB에 포스트를 저장하고 관리하기.
 3. 페이지네이션 구현하기.
 4. 포스트 검색기능.
@@ -24,3 +23,4 @@ Making a forum to get used to Spring Framework(and Thymeleaf etc).
 4. 포스트를 작성한 회원만이 포스트를 수정/삭제할 수 있는 것
 5. 포스트가 삭제되면 페이지에서 보이지 않는 것
 6. 포스트 검색기능(메모리에서 동작)
+7. DB에 회원을 저장하고 관리하기.
