@@ -14,7 +14,7 @@ public class MemoryMemberRepository implements MemberRepository{
     @Override
     public Optional<Member> addMember(Member member) {
 
-        if(findByEmail(member.getEmail()).isPresent()) {
+        if(findByEmail(member.getEmail()).isEmpty()) {
             log.info("이미 존재하는 회원입니다.");
             return Optional.empty();
         }
@@ -27,7 +27,7 @@ public class MemoryMemberRepository implements MemberRepository{
     }
 
     @Override
-    public Member updateMember(Member updateMember) {
+    public void updateMember(Member updateMember) {
 
         Member member = new Member();
         member.setId(updateMember.getId());
@@ -38,7 +38,6 @@ public class MemoryMemberRepository implements MemberRepository{
 
         store.put(member.getId(),member);
         log.info("멤버 저장 완료, 이름 : {}, email : {} , password : {}",member.getName(), member.getEmail(), member.getPassword());
-        return member;
     }
 
     @Override
@@ -49,8 +48,8 @@ public class MemoryMemberRepository implements MemberRepository{
     }
 
     @Override
-    public Member findById(Long id) {
-        return store.get(id);
+    public Optional<Member> findById(Long id) {
+        return Optional.ofNullable(store.get(id));
     }
 
     public List<Member> findAll() {
@@ -58,9 +57,11 @@ public class MemoryMemberRepository implements MemberRepository{
     }
 
     @Override
-    public Optional<Member> findByEmail(String email) {
-        return findAll().stream()
-                .filter(m -> m.getEmail().equals(email))
-                .findFirst();
+    public List<Member> findByEmail(String email) {
+//        return findAll().stream()
+//                .filter(m -> m.getEmail().equals(email))
+//                .findFirst();
+        return findAll();
     }
+
 }

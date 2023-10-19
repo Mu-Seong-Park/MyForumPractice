@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -64,7 +65,7 @@ public class ForumController {
 
         String loginMemberName = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER) ).getName();
         Long loginMemberId = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER)).getId();
-        forumService.writePost(post,loginMemberId, loginMemberName);
+        forumService.writePost(post);
 
         return "redirect:/forum";
     }
@@ -72,7 +73,7 @@ public class ForumController {
     @GetMapping("/post")
     public String readPost(@RequestParam("id") Long id , Model model, HttpServletRequest request) {
 
-        Post foundPost = forumService.findPostById(id);
+        Optional<Post> foundPost = forumService.findPostById(id);
         model.addAttribute("post",foundPost);
         HttpSession session = request.getSession(false);
         if(session == null) {
@@ -87,24 +88,24 @@ public class ForumController {
     @GetMapping("/update")
     public String updatePostForm(@RequestParam("id") Long id , Model model, HttpServletRequest request) {
 
-        Post foundPost = forumService.findPostById(id);
-        log.info("작성자 : {}",foundPost.getForumUserId());
-        model.addAttribute("post",foundPost);
-        Member writer = memberService.findById(foundPost.getForumUserId());
-
-        HttpSession session = request.getSession(false);
-
-        if(session == null) {
-            return "redirect:/login";
-        }
-
-        Long loginMemberId = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER)).getId();
-        log.info("현재 로그인한 id : {}",loginMemberId);
-        if(writer.getId() != loginMemberId)
-        {
-            //로그인 id 유효성 검사 로직.
-
-        }
+//        Post foundPost = forumService.findPostById(id);
+//        log.info("작성자 : {}",foundPost.getForumUserId());
+//        model.addAttribute("post",foundPost);
+//        Member writer = memberService.findById(foundPost.getForumUserId());
+//
+//        HttpSession session = request.getSession(false);
+//
+//        if(session == null) {
+//            return "redirect:/login";
+//        }
+//
+//        Long loginMemberId = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER)).getId();
+//        log.info("현재 로그인한 id : {}",loginMemberId);
+//        if(writer.getId() != loginMemberId)
+//        {
+//            //로그인 id 유효성 검사 로직.
+//
+//        }
         return "forum/updatePostForm";
     }
     @PostMapping("/update")
@@ -119,8 +120,9 @@ public class ForumController {
     @GetMapping("/delete")
     public String deletePost(@RequestParam("id") Long id , Model model, HttpServletRequest request) {
 
-        Post foundPost = forumService.findPostById(id);
-        Member writer = memberService.findById(foundPost.getForumUserId());
+        Optional<Post> foundPost = forumService.findPostById(id);
+//        Member writer = memberService.findById(foundPost.getForumUserId());
+        Member writer = new Member();
 
         HttpSession session = request.getSession(false);
 

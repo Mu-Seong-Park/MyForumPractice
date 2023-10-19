@@ -5,6 +5,9 @@ import hello.mylogin.member.Member;
 import hello.mylogin.member.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 public class LoginService {
 
@@ -16,9 +19,8 @@ public class LoginService {
     }
 
     public Member login(String email, String password) {
-        return memberRepository.findByEmail(email)
-                .filter(m -> m.getPassword().equals(password))
-                .orElse(null);
+
+        return memberRepository.findByEmail(email).stream().filter(m -> m.getPassword().equals(password)).findFirst().get();
 
     }
 }

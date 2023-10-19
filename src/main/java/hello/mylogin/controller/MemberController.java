@@ -53,7 +53,7 @@ public class MemberController {
         member.setPassword(memberDto.getPassword());
         member.setName(memberDto.getName());
         member.setDeleted(false);
-        member.setRole(Role.BASIC);
+        member.setRole(Role.USER);
 
         Optional<Member> addedMember = memberService.addMember(member);
 

@@ -6,6 +6,7 @@ import hello.mylogin.forum.post.SearchPostDto;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class ForumService {
@@ -15,8 +16,8 @@ public class ForumService {
         this.postRepository = postRepository;
     }
 
-    public Post writePost(Post post,Long userId, String userName) {
-        Post newPost = postRepository.addPost(post,userId, userName);
+    public Post writePost(Post post) {
+        Post newPost = postRepository.addPost(post);
         log.info("글쓰기 완료");
 
         return newPost;
@@ -32,7 +33,7 @@ public class ForumService {
         log.info("수정 완료");
     }
 
-    public Post findPostById(Long id) {
+    public Optional<Post> findPostById(Long id) {
         return postRepository.findById(id);
     }
 

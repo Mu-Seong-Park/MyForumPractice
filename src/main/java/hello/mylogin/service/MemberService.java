@@ -33,14 +33,19 @@ public class MemberService {
     }
 
     public Member findById(Long id) {
-        Member foundMember = memberRepository.findById(id);
+        Optional<Member> foundMember = memberRepository.findById(id);
         log.info("검색 완료");
 
-        return foundMember;
+        if(foundMember.isEmpty()) {
+            log.info("회원 검색을 실패했습니다.");
+
+            return null;
+        }
+        return foundMember.get();
     }
 
     public Optional<Member> findByEmail(String email) {
-        Optional<Member> foundMember = memberRepository.findByEmail(email);
+        Optional<Member> foundMember = memberRepository.findByEmail(email).stream().findFirst();
         log.info("검색 완료");
 
         return foundMember;

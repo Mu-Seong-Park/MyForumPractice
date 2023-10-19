@@ -9,32 +9,36 @@ public class MemoryPostRepository implements PostRepository {
     private static long sequence = 0L;
 
 
+//    @Override
+//    public Post addPost(Post post, Long userId,String userName) {
+//        post.setId(++sequence);
+//        post.setWrittenDate(LocalDateTime.now());
+////        post.setForumUserId(userId);
+////        post.setForumUserName(userName);
+//        store.put(post.getId(),post);
+//        return post;
+//    }
+
     @Override
-    public Post addPost(Post post, Long userId,String userName) {
-        post.setId(++sequence);
-        post.setWrittenDate(LocalDateTime.now());
-        post.setForumUserId(userId);
-        post.setForumUserName(userName);
-        store.put(post.getId(),post);
-        return post;
+    public Post addPost(Post post) {
+        return null;
     }
 
     @Override
-    public Post updatePost(Long id, Post updatePost) {
+    public void updatePost(Long id, Post updatePost) {
         Post prePost = store.get(id);
         prePost.setTitle(updatePost.getTitle());
         prePost.setContents(updatePost.getContents());
         prePost.setUpdateDate(LocalDateTime.now());
         prePost.setUpdated(true);
-        return prePost;
     }
 
     @Override
     public void deletePost(Long id, Long forumUserId) {
         Post targetPost = store.get(id);
-        if(targetPost.getForumUserId() == forumUserId) {
-            targetPost.setDeleted(true);
-        }
+//        if(targetPost.getForumUserId() == forumUserId) {
+//            targetPost.setDeleted(true);
+//        }
 
     }
 
@@ -44,8 +48,8 @@ public class MemoryPostRepository implements PostRepository {
     }
 
     @Override
-    public Post findById(Long id) {
-        return store.get(id);
+    public Optional<Post> findById(Long id) {
+        return Optional.ofNullable(store.get(id));
     }
 
     //추가할 기능 : 검색 결과를 보여줄 때 무엇을 기준으로 할지 (user id , 제목 , 컨텐츠 내용)
