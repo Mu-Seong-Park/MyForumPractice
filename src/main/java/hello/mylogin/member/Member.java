@@ -6,7 +6,9 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -39,6 +41,12 @@ public class Member {
     @CreationTimestamp
     private LocalDateTime createDate;
 
-    @OneToMany
-    private Set<Post> posts = new HashSet<>();
+    @OneToMany(mappedBy = "member")
+    private List<Post> posts = new ArrayList<>();
+
+    //Post 객체와 바인드하기 위한 메서드.
+    public void thisPostBelongToMember(Post post) {
+        post.setMember(this);
+        this.posts.add(post);
+    }
 }

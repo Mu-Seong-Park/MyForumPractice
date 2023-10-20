@@ -6,40 +6,40 @@
     <title>글 제목</title>
 </head>
 <body>
-<div class="container-fluid" style="max-width: 1000px" th:object="${post}">
+<div class="container-fluid" style="max-width: 1000px">
     <div class="text-center py-3">
         <label for="title">제목</label>
-        <input type="text" id="title" readonly="readonly" th:field="*{title}" class="form-control">
+        <input type="text" id="title" readonly="readonly" th:field="${post.title}" class="form-control">
     </div>
     <div class="text-center py-3">
         <label for="user">작성자</label>
-        <input type="text" id="user" readonly="readonly" th:field="*{forumUserName}" class="form-control">
+        <input type="text" id="user" readonly="readonly" th:field="${post.member.getName()}" class="form-control">
     </div>
     <div class="text-center py-3">
         <label for="date">작성 날짜</label>
-        <input type="text" id="date" readonly="readonly" th:field="*{writtenDate}" class="form-control">
+        <input type="text" id="date" readonly="readonly" th:field="${post.writtenDate}" class="form-control">
     </div>
-    <div class="text-center py-3" th:if="*{updated}">
+    <div class="text-center py-3" th:if="${post.updated}">
         <label for="updateDate">수정 날짜</label>
-        <input type="text" id="updateDate" readonly="readonly" th:field="*{updateDate}" class="form-control">
+        <input type="text" id="updateDate" readonly="readonly" th:field="${post.updateDate}" class="form-control">
     </div>
     <div>
         <label for="contents">내용</label>
-        <input type="text" id="contents" readonly="readonly" th:field="*{contents}" class="form-control">
+        <input type="text" id="contents" readonly="readonly" th:field="${post.contents}" class="form-control">
     </div>
 </div>
 <hr class="my-3">
 <div class="row">
-    <div class="col" th:with="userId=${writerId}">
-        <button class="w-50 btn btn-primary btn-lg" th:if="${post.forumUserId == userId}"
+    <div class="col" th:with="userId=${loginMemberId}">
+        <button class="w-50 btn btn-primary btn-lg" th:if="${loginMemberId == userId}"
                 th:onclick="|location.href='@{/forum/update(id=${post.id})}'|"
                 type="button">
             수정
         </button>
     </div>
 
-    <div class="col" th:with="userId=${writerId}">
-        <button class="w-50 btn btn-primary btn-lg" th:if="${post.forumUserId == userId}"
+    <div class="col" th:with="userId=${loginMemberId}">
+        <button class="w-50 btn btn-primary btn-lg" th:if="${loginMemberId == userId}"
                 th:onclick="|location.href='@{/forum/delete(id=${post.id})}'|"
                 type="button">
             삭제

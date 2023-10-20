@@ -34,7 +34,7 @@ public class ForumController {
     }
 
     @GetMapping
-    public String freeForumForm (Model model) {
+    public String forumForm (Model model) {
 
         model.addAttribute("postList",forumService.findAll());
         return "/forum/postList";
@@ -63,8 +63,8 @@ public class ForumController {
             return "redirect:/login";
         }
 
-        String loginMemberName = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER) ).getName();
-        Long loginMemberId = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER)).getId();
+        Member writer = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER));
+        writer.thisPostBelongToMember(post);
         forumService.writePost(post);
 
         return "redirect:/forum";
@@ -74,14 +74,17 @@ public class ForumController {
     public String readPost(@RequestParam("id") Long id , Model model, HttpServletRequest request) {
 
         Optional<Post> foundPost = forumService.findPostById(id);
-        model.addAttribute("post",foundPost);
+        if(foundPost.isEmpty()) {
+            return "redirect:/forum";
+        }
+        model.addAttribute("post",foundPost.get());
         HttpSession session = request.getSession(false);
         if(session == null) {
             return "redirect:/login";
         }
 
         Long loginMemberId = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER)).getId();
-        model.addAttribute("writerId",loginMemberId);
+        model.addAttribute("loginMemberId",loginMemberId);
         return "forum/readPostForm";
     }
 

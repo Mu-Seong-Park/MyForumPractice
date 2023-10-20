@@ -1,5 +1,6 @@
 package hello.mylogin.forum.post;
 
+import hello.mylogin.member.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
