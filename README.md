@@ -5,7 +5,8 @@ Making a forum to get used to Spring Framework(and Thymeleaf etc).
 1. 페이지네이션 구현하기.
 2. 테스트 코드 작성하기.
 3. JWT를 사용해서 로그인 update
-4. html 정리해서 깔끔한 페이지로 수정하기.
+4. 회원 정보 보기 / 회원 삭제 및 수정 / 게시판에서 다시 홈페이지로 가는 버튼.
+5. html 정리해서 깔끔한 페이지로 수정하기.
 
 # 추가 목표(우선 순위 순서가 아님)
 1. SpringSecurity를 추가할 수 있도록 하는 것.
