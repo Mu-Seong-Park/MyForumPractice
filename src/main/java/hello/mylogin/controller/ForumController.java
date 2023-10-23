@@ -85,30 +85,34 @@ public class ForumController {
 
         Long loginMemberId = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER)).getId();
         model.addAttribute("loginMemberId",loginMemberId);
+        model.addAttribute("writer",foundPost.get().getMember());
         return "forum/readPostForm";
     }
 
     @GetMapping("/update")
     public String updatePostForm(@RequestParam("id") Long id , Model model, HttpServletRequest request) {
 
-//        Post foundPost = forumService.findPostById(id);
-//        log.info("작성자 : {}",foundPost.getForumUserId());
-//        model.addAttribute("post",foundPost);
-//        Member writer = memberService.findById(foundPost.getForumUserId());
-//
-//        HttpSession session = request.getSession(false);
-//
-//        if(session == null) {
-//            return "redirect:/login";
-//        }
-//
-//        Long loginMemberId = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER)).getId();
-//        log.info("현재 로그인한 id : {}",loginMemberId);
-//        if(writer.getId() != loginMemberId)
-//        {
-//            //로그인 id 유효성 검사 로직.
-//
-//        }
+        Optional<Post> foundPost = forumService.findPostById(id);
+        if(foundPost.isEmpty()) {
+            //포스트를 찾을 수 없는 경우, 자유게시판으로 redirect
+            return "redirect:/forum";
+        }
+        log.info("작성자 : {}",foundPost.get().getMember().getName());
+        model.addAttribute("post",foundPost.get());
+        Member writer = memberService.findById(foundPost.get().getMember().getId());
+
+        HttpSession session = request.getSession(false);
+
+        if(session == null) {
+            return "redirect:/login";
+        }
+
+        Long loginMemberId = ((Member) session.getAttribute(SessionConst.LOGIN_MEMBER)).getId();
+        log.info("현재 로그인한 id : {}",loginMemberId);
+        if(writer.getId() != loginMemberId) {
+            //로그인 id 유효성 검사 로직.
+
+        }
         return "forum/updatePostForm";
     }
     @PostMapping("/update")
@@ -124,10 +128,16 @@ public class ForumController {
     public String deletePost(@RequestParam("id") Long id , Model model, HttpServletRequest request) {
 
         Optional<Post> foundPost = forumService.findPostById(id);
-//        Member writer = memberService.findById(foundPost.getForumUserId());
-        Member writer = new Member();
 
-        HttpSession session = request.getSession(false);
+        if(foundPost.isEmpty()) {
+            //포스트를 찾을 수 없는 경우, 자유게시판으로 redirect
+            return "redirect:/forum";
+        }
+        log.info("작성자 : {}",foundPost.get().getMember().getName());
+        model.addAttribute("post",foundPost.get());
+        Member writer = memberService.findById(foundPost.get().getMember().getId());
+
+        HttpSession session = request.getSession();
 
         if(session == null) {
             return "redirect:/login";
@@ -150,7 +160,7 @@ public class ForumController {
 
     @GetMapping("/search")
     public String searchPostForm(@RequestParam(value = "keyword",required = false) String keyword, Model model) {
-        List<Post> searchPostList = forumService.searchPost(keyword);
+        List<Post> searchPostList = forumService.searchPostByTitle(keyword);
         model.addAttribute("postList",searchPostList);
         return "forum/searchPostForm";
     }

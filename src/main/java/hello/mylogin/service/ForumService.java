@@ -44,7 +44,7 @@ public class ForumService {
         return postRepository.findAll();
     }
 
-    public List<Post> searchPost(String keyword) {
+    public List<Post> searchPostByTitle(String keyword) {
 
         log.info("일부 검색 완료");
 

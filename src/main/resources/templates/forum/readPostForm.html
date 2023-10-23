@@ -13,7 +13,7 @@
     </div>
     <div class="text-center py-3">
         <label for="user">작성자</label>
-        <input type="text" id="user" readonly="readonly" th:field="${post.member.getName()}" class="form-control">
+        <input type="text" id="user" readonly="readonly" th:field="${writer.name}" class="form-control">
     </div>
     <div class="text-center py-3">
         <label for="date">작성 날짜</label>
@@ -31,7 +31,7 @@
 <hr class="my-3">
 <div class="row">
     <div class="col" th:with="userId=${loginMemberId}">
-        <button class="w-50 btn btn-primary btn-lg" th:if="${loginMemberId == userId}"
+        <button class="w-50 btn btn-primary btn-lg" th:if="${writer.id == userId}"
                 th:onclick="|location.href='@{/forum/update(id=${post.id})}'|"
                 type="button">
             수정
@@ -39,7 +39,7 @@
     </div>
 
     <div class="col" th:with="userId=${loginMemberId}">
-        <button class="w-50 btn btn-primary btn-lg" th:if="${loginMemberId == userId}"
+        <button class="w-50 btn btn-primary btn-lg" th:if="${writer.id == userId}"
                 th:onclick="|location.href='@{/forum/delete(id=${post.id})}'|"
                 type="button">
             삭제

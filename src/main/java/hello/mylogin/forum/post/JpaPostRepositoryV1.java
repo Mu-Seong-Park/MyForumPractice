@@ -59,7 +59,7 @@ public class JpaPostRepositoryV1 implements PostRepository {
     public List<Post> findByTitle(String keyword) {
         String jpql = "select p from Post p";
         jpql += " where p.title like concat('%',:keyword,'%')";
-        TypedQuery<Post> query = em.createQuery(jpql,Post.class);
+        TypedQuery<Post> query = em.createQuery(jpql,Post.class).setParameter("keyword",keyword);
 
         return query.getResultList();
     }

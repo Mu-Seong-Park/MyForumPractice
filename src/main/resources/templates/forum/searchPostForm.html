@@ -32,7 +32,7 @@
                     <td >
                         <a th:text="${post.title}" th:href='@{/forum/post(id=${post.id})}'></a>
                     </td>
-                    <td th:text="${post.forumUserName}">작성자</td>
+                    <td th:text="${post.member.name}">작성자</td>
                     <td th:text="${post.writtenDate}">작성 날짜</td>
                 </tr>
                 </tbody>
