@@ -2,11 +2,9 @@
 Making a forum to get used to Spring Framework(and Thymeleaf etc).
 
 # 목표
-2. DB에 포스트를 저장하고 관리하기.
-3. 페이지네이션 구현하기.
-4. 포스트 검색기능.
-5. 테스트 코드 작성하기.
-6. JWT를 사용해서 로그인 update
+1. 페이지네이션 구현하기.
+2. 테스트 코드 작성하기.
+3. JWT를 사용해서 로그인 update
 
 # 추가 목표(우선 순위 순서가 아님)
 1. SpringSecurity를 추가할 수 있도록 하는 것.
@@ -24,3 +22,5 @@ Making a forum to get used to Spring Framework(and Thymeleaf etc).
 5. 포스트가 삭제되면 페이지에서 보이지 않는 것
 6. 포스트 검색기능(메모리에서 동작)
 7. DB에 회원을 저장하고 관리하기.
+8. DB에 포스트를 저장하고 관리하기.
+9. 포스트 제목으로 검색할 수 있는 기능.
