@@ -3,10 +3,10 @@ package hello.mylogin.controller;
 import hello.mylogin.config.SessionConst;
 import hello.mylogin.forum.post.Post;
 import hello.mylogin.forum.post.PostValidator;
-import hello.mylogin.forum.post.SearchPostDto;
 import hello.mylogin.member.Member;
 import hello.mylogin.service.ForumService;
 import hello.mylogin.service.MemberService;
+import hello.mylogin.service.PageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,10 +27,12 @@ public class ForumController {
     private final ForumService forumService;
     private final PostValidator postValidator;
     private final MemberService memberService;
-    public ForumController(ForumService forumService, PostValidator postValidator, MemberService memberService) {
+    private final PageService pageService;
+    public ForumController(ForumService forumService, PostValidator postValidator, MemberService memberService, PageService pageService) {
         this.forumService = forumService;
         this.postValidator = postValidator;
         this.memberService = memberService;
+        this.pageService = pageService;
     }
 
     @GetMapping

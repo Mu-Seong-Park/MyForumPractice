@@ -7,6 +7,7 @@ import hello.mylogin.member.MemberRepository;
 import hello.mylogin.service.ForumService;
 import hello.mylogin.service.LoginService;
 import hello.mylogin.service.MemberService;
+import hello.mylogin.service.PageService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -48,5 +49,9 @@ public class MemberConfig {
         return new ForumService(postRepository());
     }
 
+    @Bean
+    public PageService pageService() {
+        return new PageService(postRepository());
+    }
 
 }
