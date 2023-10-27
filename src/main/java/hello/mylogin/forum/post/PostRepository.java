@@ -1,5 +1,7 @@
 package hello.mylogin.forum.post;
 
+import hello.mylogin.forum.page.PageParam;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +19,8 @@ public interface PostRepository {
     Optional<Post> findById(Long id);
 
     List<Post> findAll();
+
+    List<Post> findLimit(PageParam pageParam);
 
     List<Post> findByTitle(String keyword);
 }

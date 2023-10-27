@@ -1,5 +1,7 @@
 package hello.mylogin.forum.post;
 
+import hello.mylogin.forum.page.PageParam;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -45,6 +47,11 @@ public class MemoryPostRepository implements PostRepository {
     @Override
     public List<Post> findAll() {
         return new ArrayList<>(store.values());
+    }
+
+    @Override
+    public List<Post> findLimit(PageParam pageParam) {
+        return null;
     }
 
     @Override

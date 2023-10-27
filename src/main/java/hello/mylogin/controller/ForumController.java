@@ -1,6 +1,8 @@
 package hello.mylogin.controller;
 
 import hello.mylogin.config.SessionConst;
+import hello.mylogin.forum.page.PageDto;
+import hello.mylogin.forum.page.PageParam;
 import hello.mylogin.forum.post.Post;
 import hello.mylogin.forum.post.PostValidator;
 import hello.mylogin.member.Member;
@@ -35,10 +37,15 @@ public class ForumController {
         this.pageService = pageService;
     }
 
-    @GetMapping
-    public String forumForm (Model model) {
+    @GetMapping("/list")
+    public String forumForm (@RequestParam(value = "pageIndex", required = false) Optional<Integer> page, @RequestParam(value = "pagingSize",required = false) Optional<Integer> amount, Model model) {
+        PageParam pageParam = new PageParam(page.get(),amount.get());
 
-        model.addAttribute("postList",forumService.findAll());
+        List<Post> postList = pageService.pageList(pageParam);
+        int total = forumService.findAll().size();
+        PageDto pageDto = new PageDto(total,pageParam);
+        model.addAttribute("postList",postList);
+        model.addAttribute("page",pageDto);
         return "/forum/postList";
     }
 
@@ -51,7 +58,7 @@ public class ForumController {
     }
 
     @PostMapping("/write")
-    public String writePost (@ModelAttribute Post post, BindingResult bindingResult, HttpServletRequest request) {
+    public String writePost (@ModelAttribute Post post, BindingResult bindingResult, HttpServletRequest request,RedirectAttributes redirectAttributes) {
 
         postValidator.validate(post,bindingResult);
 
@@ -69,15 +76,21 @@ public class ForumController {
         writer.thisPostBelongToMember(post);
         forumService.writePost(post);
 
-        return "redirect:/forum";
+
+        redirectAttributes.addAttribute("pageIndex",1);
+        redirectAttributes.addAttribute("pagingSize",10);
+        return "redirect:/forum/list";
     }
 
     @GetMapping("/post")
-    public String readPost(@RequestParam("id") Long id , Model model, HttpServletRequest request) {
+    public String readPost(@RequestParam("id") Long id , Model model, HttpServletRequest request,RedirectAttributes redirectAttributes) {
 
         Optional<Post> foundPost = forumService.findPostById(id);
         if(foundPost.isEmpty()) {
-            return "redirect:/forum";
+
+            redirectAttributes.addAttribute("pageIndex",1);
+            redirectAttributes.addAttribute("pagingSize",10);
+            return "redirect:/forum/list";
         }
         model.addAttribute("post",foundPost.get());
         HttpSession session = request.getSession(false);
@@ -92,12 +105,15 @@ public class ForumController {
     }
 
     @GetMapping("/update")
-    public String updatePostForm(@RequestParam("id") Long id , Model model, HttpServletRequest request) {
+    public String updatePostForm(@RequestParam("id") Long id , Model model, HttpServletRequest request,RedirectAttributes redirectAttributes) {
 
         Optional<Post> foundPost = forumService.findPostById(id);
         if(foundPost.isEmpty()) {
             //포스트를 찾을 수 없는 경우, 자유게시판으로 redirect
-            return "redirect:/forum";
+
+            redirectAttributes.addAttribute("pageIndex",1);
+            redirectAttributes.addAttribute("pagingSize",10);
+            return "redirect:/forum/list";
         }
         log.info("작성자 : {}",foundPost.get().getMember().getName());
         model.addAttribute("post",foundPost.get());
@@ -123,17 +139,21 @@ public class ForumController {
         forumService.updatePost(id, updatePost);
         log.info("updatePost의 content : {}",updatePost.getContents());
         redirectAttributes.addAttribute("id", id);
+
         return "redirect:/forum/post";
     }
 
     @GetMapping("/delete")
-    public String deletePost(@RequestParam("id") Long id , Model model, HttpServletRequest request) {
+    public String deletePost(@RequestParam("id") Long id , Model model, HttpServletRequest request,RedirectAttributes redirectAttributes) {
 
         Optional<Post> foundPost = forumService.findPostById(id);
 
         if(foundPost.isEmpty()) {
             //포스트를 찾을 수 없는 경우, 자유게시판으로 redirect
-            return "redirect:/forum";
+
+            redirectAttributes.addAttribute("pageIndex",1);
+            redirectAttributes.addAttribute("pagingSize",10);
+            return "redirect:/forum/list";
         }
         log.info("작성자 : {}",foundPost.get().getMember().getName());
         model.addAttribute("post",foundPost.get());
@@ -142,6 +162,7 @@ public class ForumController {
         HttpSession session = request.getSession();
 
         if(session == null) {
+
             return "redirect:/login";
         }
 
@@ -156,8 +177,10 @@ public class ForumController {
 
         forumService.deletePost(id, loginMemberId);
 
+        redirectAttributes.addAttribute("pageIndex",1);
+        redirectAttributes.addAttribute("pagingSize",10);
 
-        return "redirect:/forum";
+        return "redirect:/forum/list";
     }
 
     @GetMapping("/search")

@@ -1,6 +1,6 @@
 package hello.mylogin.forum.post;
 
-import hello.mylogin.member.Member;
+import hello.mylogin.forum.page.PageParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,6 +52,16 @@ public class JpaPostRepositoryV1 implements PostRepository {
         String jpql = "select p from Post p";
         TypedQuery<Post> query = em.createQuery(jpql,Post.class);
 
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Post> findLimit(PageParam pageParam) {
+        String jpql = "select p from Post p order by p.id DESC";
+        TypedQuery<Post> query = em.createQuery(jpql,Post.class);
+
+        query.setFirstResult(pageParam.getSkip());
+        query.setMaxResults(pageParam.getAmount());
         return query.getResultList();
     }
 

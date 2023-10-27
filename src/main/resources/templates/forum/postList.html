@@ -37,6 +37,14 @@
         </tr>
       </tbody>
     </table>
+    <a th:href="@{/forum/list(pageIndex=1,pagingSize=10)}">첫 페이지</a>
+    <span th:each="pageNumber: ${#numbers.sequence(page.startPage,page.endPage)}">
+      <span th:if="${pageNumber == page.pageParam.getPage()}" th:text="${pageNumber}"></span>
+      <span th:unless="${pageNumber == page.pageParam.getPage()}">
+        <a th:href="@{/forum/list(pageIndex=${pageNumber},pagingSize=10)}" th:text="${pageNumber}"></a>
+      </span>
+    </span>
+    <a th:href="@{/forum/list(pageIndex=${page.realEnd},pagingSize=10)}">마지막 페이지</a>
   </div>
   <div>
     <div>
