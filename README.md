@@ -16,6 +16,7 @@ Making a forum to get used to Spring Framework(and Thymeleaf etc).
 4. 검색 방법 (제목, 작성자 등) 다양화.
 5. 위의 다양화가 이루어지면 심화적인 검색 알고리즘 생각해보기.
 6. post,member 등의 객체를 DTO를 사용할 수 있도록 수정.
+7. jpql이 사용된 곳을 querydsl으로 대체할 수 있도록 리팩토링 진행하기
 
 # 현재 완료된 것
 1. 메모리(MAP)에 회원과 포스트를 저장하고, 읽고 쓰는 것
