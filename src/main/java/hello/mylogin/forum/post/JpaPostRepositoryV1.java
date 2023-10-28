@@ -57,7 +57,7 @@ public class JpaPostRepositoryV1 implements PostRepository {
 
     @Override
     public List<Post> findLimit(PageParam pageParam) {
-        String jpql = "select p from Post p order by p.id DESC";
+        String jpql = "select p from Post p where p.isDeleted = false order by p.id DESC";
         TypedQuery<Post> query = em.createQuery(jpql,Post.class);
 
         query.setFirstResult(pageParam.getSkip());
