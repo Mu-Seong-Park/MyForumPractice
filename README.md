@@ -2,11 +2,10 @@
 Making a forum to get used to Spring Framework(and Thymeleaf etc).
 
 # 목표
-1. 검색 화면도 페이징 적용하기.
-2. 테스트 코드 작성하기.
-3. JWT를 사용해서 로그인 update
-4. 회원 정보 보기 / 회원 삭제 및 수정 / 게시판에서 다시 홈페이지로 가는 버튼.
-5. html 정리해서 깔끔한 페이지로 수정하기 & 수정 삭제 후에 페이지 정렬이 잘 안되는 현상 해결하기.
+1. 테스트 코드 작성하기.
+2. JWT를 사용해서 로그인 update
+3. 회원 정보 보기 / 회원 삭제 및 수정 / 게시판에서 다시 홈페이지로 가는 버튼.
+4. html 정리해서 깔끔한 페이지로 수정하기 & 수정 삭제 후에 페이지 정렬이 잘 안되는 현상 해결하기.
 
 # 추가 목표(우선 순위 순서가 아님)
 1. SpringSecurity를 추가할 수 있도록 하는 것.
@@ -29,4 +28,5 @@ Making a forum to get used to Spring Framework(and Thymeleaf etc).
 9. 포스트 제목으로 검색할 수 있는 기능.
 10. 페이지네이션 구현하기.
 11. PostRepository에서 findAll() 메서드를 호출했을 때, sql쿼리를 수정해서 deleted 변수가 true인 게시글은 불러오지 않도록 하기.
+12. 포스트 제목 검색한 결과 Paging
 
