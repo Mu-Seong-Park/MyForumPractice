@@ -1,5 +1,6 @@
 package hello.mylogin.service;
 
+import hello.mylogin.forum.page.PageParam;
 import hello.mylogin.forum.post.Post;
 import hello.mylogin.forum.post.PostRepository;
 import hello.mylogin.forum.post.SearchPostDto;
@@ -44,10 +45,17 @@ public class ForumService {
         return postRepository.findAll();
     }
 
-    public List<Post> searchPostByTitle(String keyword) {
+    public List<Post> searchPostByTitle(String keyword, PageParam pageParam) {
 
         log.info("일부 검색 완료");
 
-        return postRepository.findByTitle(keyword);
+        return postRepository.findByTitle(keyword,pageParam);
+    }
+
+    public List<Post> searchPostByTitleAll(String keyword) {
+
+        log.info("일부 검색 완료");
+
+        return postRepository.findByTitleAll(keyword);
     }
 }

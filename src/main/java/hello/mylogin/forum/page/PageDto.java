@@ -33,8 +33,12 @@ public class PageDto {
         this.realEnd = (int)(Math.ceil(total / amount));
 
         if(realEnd < endPage) {
+            if(realEnd == 0) {
+                realEnd = 1;
+            }
             this.endPage = realEnd;
         }
+
 
         this.prev = current > 1;
         this.next = current < realEnd;

@@ -32,11 +32,19 @@
                     <td >
                         <a th:text="${post.title}" th:href='@{/forum/post(id=${post.id})}'></a>
                     </td>
-                    <td th:text="${post.member.name}">작성자</td>
+                    <td th:text="${post.member.getName()}">작성자</td>
                     <td th:text="${post.writtenDate}">작성 날짜</td>
                 </tr>
                 </tbody>
             </table>
+            <a th:href="@{/forum/search(keyword=${keyword}, pageIndex=1,pagingSize=10)}">첫 페이지</a>
+            <span th:each="pageNumber: ${#numbers.sequence(page.startPage,page.endPage)}">
+                <span th:if="${pageNumber == page.pageParam.getPage()}" th:text="${pageNumber}"></span>
+                <span th:unless="${pageNumber == page.pageParam.getPage()}">
+                    <a th:href="@{/forum/search(keyword=${keyword}, pageIndex=${pageNumber},pagingSize=10)}" th:text="${pageNumber}"></a>
+                </span>
+            </span>
+            <a th:href="@{/forum/search(keyword=${keyword}, pageIndex=${page.realEnd},pagingSize=10)}">마지막 페이지</a>
         </div>
         <div>
             <div>

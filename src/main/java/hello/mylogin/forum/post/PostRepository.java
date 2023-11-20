@@ -22,5 +22,7 @@ public interface PostRepository {
 
     List<Post> findLimit(PageParam pageParam);
 
-    List<Post> findByTitle(String keyword);
+    List<Post> findByTitle(String keyword, PageParam pageParam);
+
+    List<Post> findByTitleAll(String keyword);
 }

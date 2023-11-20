@@ -1,6 +1,7 @@
 package hello.mylogin.forum.post;
 
 import hello.mylogin.forum.page.PageParam;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -62,7 +63,7 @@ public class MemoryPostRepository implements PostRepository {
     //추가할 기능 : 검색 결과를 보여줄 때 무엇을 기준으로 할지 (user id , 제목 , 컨텐츠 내용)
 
     @Override
-    public List<Post> findByTitle(String keyword) {
+    public List<Post> findByTitle(String keyword, PageParam pageParam) {
         List<Post> result = new ArrayList<>();
         for (Post target : store.values()) {
             if(target.getTitle().contains(keyword)) {
@@ -70,6 +71,11 @@ public class MemoryPostRepository implements PostRepository {
             }
         }
         return result;
+    }
+
+    @Override
+    public List<Post> findByTitleAll(String keyword) {
+        return null;
     }
 
 }

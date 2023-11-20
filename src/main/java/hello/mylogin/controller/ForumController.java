@@ -184,9 +184,14 @@ public class ForumController {
     }
 
     @GetMapping("/search")
-    public String searchPostForm(@RequestParam(value = "keyword",required = false) String keyword, Model model) {
-        List<Post> searchPostList = forumService.searchPostByTitle(keyword);
+    public String searchPostForm(@RequestParam(value = "keyword",required = false) String keyword,@RequestParam(value = "pageIndex", defaultValue = "1") Optional<Integer> page, @RequestParam(value = "pagingSize",defaultValue = "10 ") Optional<Integer> amount,Model model) {
+        PageParam pageParam = new PageParam(page.get(),amount.get());
+        List<Post> searchPostList = forumService.searchPostByTitle(keyword,pageParam);
+        int total = forumService.searchPostByTitleAll(keyword).size();
+        PageDto pageDto = new PageDto(total,pageParam);
         model.addAttribute("postList",searchPostList);
+        model.addAttribute("page",pageDto);
+        model.addAttribute("keyword",keyword);
         return "forum/searchPostForm";
     }
 
