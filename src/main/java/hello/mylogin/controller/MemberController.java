@@ -1,5 +1,6 @@
 package hello.mylogin.controller;
 
+import hello.mylogin.config.SessionConst;
 import hello.mylogin.member.Member;
 import hello.mylogin.member.MemberDto;
 import hello.mylogin.member.MemberValidator;
@@ -14,6 +15,8 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
@@ -63,8 +66,27 @@ public class MemberController {
     }
 
     @GetMapping("/info")
-    public String memberInfoForm(@RequestParam(value = "myProfile") String myProfile, Model model) {
+    public String memberInfoForm(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        model.addAttribute("member",loginMember);
         return "member/memberInfoForm";
     }
 
+    @GetMapping("/edit")
+    public String memberEditForm(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        model.addAttribute("member",loginMember);
+        return "/member/editMemberInfoForm";
+
+    }
+
+    @PostMapping("/edit")
+    public String memberEdit(Model model) {
+
+        return "redirect:/";
+    }
 }

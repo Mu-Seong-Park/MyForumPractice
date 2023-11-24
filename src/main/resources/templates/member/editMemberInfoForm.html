@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <title>회원 정보</title>
+</head>
+<body>
+<div class="container-fluid" style="max-width: 1000px" th:object="${member}">
+  <div class="text-center py-3">
+    <label for="name">이름</label>
+    <input type="text" id="name" readonly="readonly" th:field="*{name}" class="form-control">
+  </div>
+  <div class="text-center py-3">
+    <label for="email">이메일</label>
+    <input type="text" id="email" readonly="readonly" th:field="*{email}" class="form-control">
+  </div>
+  <div class="text-center py-3">
+    <label for="date">가입 날짜</label>
+    <input type="text" id="date" readonly="readonly" th:field="*{createDate}" class="form-control">
+  </div>
+</div>
+<hr class="my-3">
+<div class="text-center py-3">
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-primary w-75"
+              th:onclick="|location.href='@{/}'|" >
+        홈으로
+      </button>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-primary w-75"
+              th:onclick="|location.href='@{/members/edit}'|" >
+        수정
+      </button>
+    </div>
+    <div class="col">
+      <form th:action="@{/logout}" method="post">
+        <button class="btn btn-secondary w-75" type="submit">
+          로그아웃
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+<!--<div class="row">-->
+<!--    <div class="col" th:with="userId=${loginMemberId}">-->
+<!--        <button class="w-50 btn btn-primary btn-lg" th:if="${writer.id == userId}"-->
+<!--                th:onclick="|location.href='@{/forum/update(id=${post.id})}'|"-->
+<!--                type="button">-->
+<!--            수정-->
+<!--        </button>-->
+<!--    </div>-->
+
+<!--    <div class="col" th:with="userId=${loginMemberId}">-->
+<!--        <button class="w-50 btn btn-primary btn-lg" th:if="${writer.id == userId}"-->
+<!--                th:onclick="|location.href='@{/forum/delete(id=${post.id})}'|"-->
+<!--                type="button">-->
+<!--            삭제-->
+<!--        </button>-->
+<!--    </div>-->
+
+<!--    <div class="col">-->
+<!--        <button class="w-50 btn btn-secondary btn-lg"-->
+<!--                th:onclick="|location.href='@{/forum/list(pageIndex=1,pagingSize=10)}'|"-->
+<!--                type="button">글 목록</button>-->
+<!--    </div>-->
+<!--</div>-->
+</body>
+</html>
