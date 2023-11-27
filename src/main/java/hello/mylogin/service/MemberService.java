@@ -27,8 +27,8 @@ public class MemberService {
         log.info("삭제 완료");
     }
 
-    public void updateMember(Member member) {
-        memberRepository.updateMember(member);
+    public void updateMember(Long id, Member member) {
+        memberRepository.updateMember(id , member);
         log.info("수정 완료");
     }
 

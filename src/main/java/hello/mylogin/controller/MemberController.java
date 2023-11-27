@@ -78,15 +78,17 @@ public class MemberController {
     public String memberEditForm(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-
         model.addAttribute("member",loginMember);
         return "/member/editMemberInfoForm";
 
     }
 
     @PostMapping("/edit")
-    public String memberEdit(Model model) {
-
-        return "redirect:/";
+    public String memberEdit(Member updateMember, RedirectAttributes redirectAttributes,HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        memberService.updateMember(loginMember.getId(), updateMember);
+        redirectAttributes.addAttribute("member", loginMember);
+        return "redirect:/members/info";
     }
 }

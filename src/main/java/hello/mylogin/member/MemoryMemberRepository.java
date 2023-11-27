@@ -27,7 +27,7 @@ public class MemoryMemberRepository implements MemberRepository{
     }
 
     @Override
-    public void updateMember(Member updateMember) {
+    public void updateMember(Long id , Member updateMember) {
 
         Member member = new Member();
         member.setId(updateMember.getId());

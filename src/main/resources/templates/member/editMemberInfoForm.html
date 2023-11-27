@@ -6,44 +6,49 @@
   <title>회원 정보</title>
 </head>
 <body>
-<div class="container-fluid" style="max-width: 1000px" th:object="${member}">
-  <div class="text-center py-3">
-    <label for="name">이름</label>
-    <input type="text" id="name" readonly="readonly" th:field="*{name}" class="form-control">
-  </div>
-  <div class="text-center py-3">
-    <label for="email">이메일</label>
-    <input type="text" id="email" readonly="readonly" th:field="*{email}" class="form-control">
-  </div>
-  <div class="text-center py-3">
-    <label for="date">가입 날짜</label>
-    <input type="text" id="date" readonly="readonly" th:field="*{createDate}" class="form-control">
-  </div>
-</div>
-<hr class="my-3">
-<div class="text-center py-3">
-  <div class="row">
-    <div class="col">
-      <button type="button" class="btn btn-primary w-75"
-              th:onclick="|location.href='@{/}'|" >
-        홈으로
-      </button>
+<form th:action th:object="${member}" method="post">
+  <div class="container-fluid" style="max-width: 1000px">
+    <div class="text-center py-3">
+      <label for="name">이름</label>
+      <input type="text" id="name" th:field="*{name}" class="form-control">
     </div>
-    <div class="col">
-      <button type="button" class="btn btn-primary w-75"
-              th:onclick="|location.href='@{/members/edit}'|" >
-        수정
-      </button>
+    <div class="text-center py-3">
+      <label for="email">이메일</label>
+      <input type="text" id="email" th:field="*{email}" class="form-control">
     </div>
-    <div class="col">
-      <form th:action="@{/logout}" method="post">
-        <button class="btn btn-secondary w-75" type="submit">
-          로그아웃
+    <div class="text-center py-3">
+      <label for="password">패스워드</label>
+      <input type="password" id="password" readonly="readonly" th:field="*{password}" class="form-control">
+    </div>
+    <div class="text-center py-3">
+      <label for="date">가입 날짜</label>
+      <input type="text" id="date"  th:field="*{createDate}" class="form-control">
+    </div>
+  </div>
+  <hr class="my-3">
+  <div class="text-center py-3">
+    <div class="row">
+      <div class="col">
+        <button type="submit" class="btn btn-primary w-75">
+          수정완료
         </button>
-      </form>
+      </div>
+      <div class="col">
+        <form th:action="@{/logout}" method="post">
+          <button class="btn btn-secondary w-75" type="submit">
+            로그아웃
+          </button>
+        </form>
+        <div class="col">
+          <button type="button" class="btn btn-primary w-75"
+                  th:onclick="|location.href='@{/}'|" >
+            홈으로
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</form>
 <!--<div class="row">-->
 <!--    <div class="col" th:with="userId=${loginMemberId}">-->
 <!--        <button class="w-50 btn btn-primary btn-lg" th:if="${writer.id == userId}"-->

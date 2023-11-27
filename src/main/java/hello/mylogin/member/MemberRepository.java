@@ -9,7 +9,7 @@ public interface MemberRepository {
     Optional<Member> addMember(Member member);
 
     //멤버 수정
-    void updateMember(Member updateMember);
+    void updateMember(Long id, Member updateMember);
 
     //멤버 삭제(데이터는 남겨두고 boolean 타입으로 삭제 제어
     void deleteMember(Long id);
