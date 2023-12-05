@@ -4,10 +4,7 @@ import hello.mylogin.forum.post.JpaPostRepositoryV1;
 import hello.mylogin.forum.post.PostRepository;
 import hello.mylogin.member.JpaMemberRepositoryV1;
 import hello.mylogin.member.MemberRepository;
-import hello.mylogin.service.ForumService;
-import hello.mylogin.service.LoginService;
-import hello.mylogin.service.MemberService;
-import hello.mylogin.service.PageService;
+import hello.mylogin.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -52,6 +49,11 @@ public class MemberConfig {
     @Bean
     public PageService pageService() {
         return new PageService(postRepository());
+    }
+
+    @Bean
+    public VideoService videoService() {
+        return new VideoService();
     }
 
 }
