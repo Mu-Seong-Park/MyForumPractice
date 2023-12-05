@@ -84,11 +84,16 @@ public class MemberController {
     }
 
     @PostMapping("/edit")
-    public String memberEdit(Member updateMember, RedirectAttributes redirectAttributes,HttpServletRequest request) {
+    public String memberEdit(Member updateMember,HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         memberService.updateMember(loginMember.getId(), updateMember);
-        redirectAttributes.addAttribute("member", loginMember);
-        return "redirect:/members/info";
+
+        if(session != null) {
+            //세션을 날리고 강제 로그아웃.
+            session.invalidate();
+        }
+
+        return "redirect:/";
     }
 }

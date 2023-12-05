@@ -31,7 +31,7 @@ public class JpaMemberRepositoryV1 implements MemberRepository{
 
     @Override
     public void updateMember(Long id ,Member updateMember) {
-        Member findMember = em.find(Member.class,updateMember.getId());
+        Member findMember = em.find(Member.class,id);
         findMember.setName(updateMember.getName());
         findMember.setRole(updateMember.getRole());
         findMember.setEmail(updateMember.getEmail());
