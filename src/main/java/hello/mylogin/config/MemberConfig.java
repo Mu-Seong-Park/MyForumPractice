@@ -1,12 +1,15 @@
 package hello.mylogin.config;
 
+import hello.mylogin.event.FileUploadCompleteEvent;
 import hello.mylogin.forum.post.JpaPostRepositoryV1;
 import hello.mylogin.forum.post.PostRepository;
 import hello.mylogin.member.JpaMemberRepositoryV1;
 import hello.mylogin.member.MemberRepository;
 import hello.mylogin.service.*;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityManager;
 
@@ -52,8 +55,12 @@ public class MemberConfig {
     }
 
     @Bean
-    public VideoService videoService() {
-        return new VideoService();
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+    @Bean
+    public VideoService videoService(ApplicationEventPublisher eventPublisher) {
+        return new VideoService(eventPublisher,restTemplate());
     }
 
 }

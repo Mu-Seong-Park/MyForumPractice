@@ -23,13 +23,15 @@ public class VideoController {
 
     @GetMapping("/upload")
     public String uploadVideoForm() {
-        return "/uploadForm";
+        return "video/uploadForm";
     }
 
     @PostMapping("/upload")
     public String handleFileUpload(@RequestParam("file") MultipartFile file, Model model) {
         videoService.setVideoData(file);
+        videoService.handleFileUploadComplete();
         model.addAttribute("message", "File uploaded successfully!");
+        log.info("File uploaded successfully!");
         return "redirect:/";
     }
 }
