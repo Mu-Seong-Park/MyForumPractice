@@ -1,11 +1,14 @@
 # MyForumPractice
 Making a forum to get used to Spring Framework(and Thymeleaf etc).
+CyberCesco 프로젝트와 연계중
 
 # 목표
-1. 테스트 코드 작성하기.
-2. JWT를 사용해서 로그인 update
-3. 회원 정보 보기 / 회원 삭제 및 수정 / 게시판에서 다시 홈페이지로 가는 버튼.
-4. html 정리해서 깔끔한 페이지로 수정하기 & 수정 삭제 후에 페이지 정렬이 잘 안되는 현상 해결하기.
+1. FLASK 서버로부터 비디오 검사 결과를 전송하면 WebSocket을 통해서 이벤트를 수신하고 사용자에게 팝업하는 기능.
+2. 테스트 코드 작성하기.
+3. JWT를 사용해서 로그인 update
+4. 회원 정보 보기 / 회원 삭제 및 수정 / 게시판에서 다시 홈페이지로 가는 버튼.
+5. html 정리해서 깔끔한 페이지로 수정하기 & 수정 삭제 후에 페이지 정렬이 잘 안되는 현상 해결하기.
+
 
 # 추가 목표(우선 순위 순서가 아님)
 1. SpringSecurity를 추가할 수 있도록 하는 것.
@@ -29,4 +32,6 @@ Making a forum to get used to Spring Framework(and Thymeleaf etc).
 10. 페이지네이션 구현하기.
 11. PostRepository에서 findAll() 메서드를 호출했을 때, sql쿼리를 수정해서 deleted 변수가 true인 게시글은 불러오지 않도록 하기.
 12. 포스트 제목 검색한 결과 Paging
+13. FLASK 서버로 비디오를 전송할 수 있는 시스템
+14. 회원정보 수정 및 확인
 
