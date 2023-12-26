@@ -1,6 +1,5 @@
 package hello.mylogin.config;
 
-import hello.mylogin.event.FileUploadCompleteEvent;
 import hello.mylogin.forum.post.JpaPostRepositoryV1;
 import hello.mylogin.forum.post.PostRepository;
 import hello.mylogin.member.JpaMemberRepositoryV1;
@@ -9,6 +8,7 @@ import hello.mylogin.service.*;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityManager;
