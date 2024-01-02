@@ -3,20 +3,16 @@ package hello.mylogin.config;
 import hello.mylogin.websocket.MyWebSocketHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.config.annotation.*;
 
 @EnableWebSocket
 @Configuration
-public class WebSocketConfig implements WebSocketConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(signalingSocketHandler(),"/sendMessage")//웹 소켓 endpoint
-                .setAllowedOrigins("*"); //CORS
-
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/videoCheck").setAllowedOrigins("*").withSockJS();
+        WebSocketMessageBrokerConfigurer.super.registerStompEndpoints(registry);
     }
 
     @Bean

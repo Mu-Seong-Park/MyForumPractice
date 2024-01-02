@@ -3,8 +3,10 @@ package hello.mylogin.controller;
 import hello.mylogin.config.SessionConst;
 import hello.mylogin.member.Member;
 import hello.mylogin.service.EventService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @EnableWebSocket
+@Slf4j
 public class EventController {
 
     private final EventService eventService;
@@ -25,12 +28,12 @@ public class EventController {
     }
 
     // 클라이언트로부터의 메시지를 처리하는 메서드
-    @MessageMapping("/sendMessage")
-    public void handleMessageFromClient(HttpServletRequest request) {
+    @MessageMapping("/videoCheck")
+    public void handleMessageFromClient(@Payload String result, HttpServletRequest request) {
         // 비즈니스 로직을 수행하고 결과를 받음
         // 이 부분은 FLASK에서 어떻게 처리할지 좀 더 생각을 해보고 수정을 해야 할듯.
         String resultMessage = "Complete!!";
-
+        log.info("Complete!!");
         // 클라이언트에게 결과를 전송
         sendResultToClient(getCurrentUserId(request), resultMessage);
     }
