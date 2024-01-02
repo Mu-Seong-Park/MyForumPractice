@@ -2,6 +2,9 @@
 Making a forum to get used to Spring Framework(and Thymeleaf etc).
 CyberCesco 프로젝트와 연계중
 
+# 긴급 수정
+Spring Initializer에서 2.x 버전을 지원하지 않으므로 현재 사용중인 spring버전과 JAVA의 버전을 3.x버전과 자바 17로 업그레이드하는 과정을 거친다.
+
 # 목표
 1. FLASK 서버로부터 비디오 검사 결과를 전송하면 WebSocket을 통해서 이벤트를 수신하고 사용자에게 팝업하는 기능.
 2. 테스트 코드 작성하기.
