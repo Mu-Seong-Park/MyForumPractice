@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <title>자유 게시판</title>
+  <style>
+    .field-error{
+      border-color: #dc3540;
+      color: #dc3540;
+    }
+  </style>
+</head>
+<body>
+<div class="container-fluid" style="max-width: 1000px">
+  <div class="text-center py-3">
+    <h3>자유 게시판</h3>
+  </div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>글 번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성 날짜</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each = "post:${postList}" th:unless="${post.deleted}">
+          <td th:text="${post.id}">1</td>
+          <td >
+            <a th:text="${post.title}" th:href='@{/forum/post(id=${post.id})}'></a>
+          </td>
+          <td th:text="${post.member.getName()}">작성자</td>
+          <td th:text="${post.writtenDate}">작성 날짜</td>
+        </tr>
+      </tbody>
+    </table>
+    <a th:href="@{/forum/list(pageIndex=1,pagingSize=10)}">첫 페이지</a>
+    <span th:each="pageNumber: ${#numbers.sequence(page.startPage,page.endPage)}">
+      <span th:if="${pageNumber == page.pageParam.getPage()}" th:text="${pageNumber}"></span>
+      <span th:unless="${pageNumber == page.pageParam.getPage()}">
+        <a th:href="@{/forum/list(pageIndex=${pageNumber},pagingSize=10)}" th:text="${pageNumber}"></a>
+      </span>
+    </span>
+    <a th:href="@{/forum/list(pageIndex=${page.realEnd},pagingSize=10)}">마지막 페이지</a>
+  </div>
+  <div>
+    <div>
+      <button class="w-25 btn btn-primary btn-lg" th:onclick="|location.href='@{/forum/write}'|">
+      글 쓰기</button>
+    </div>
+    <form th:action="@{/forum/search}"  method="get">
+      <div>
+        <input type="text" name="keyword">
+        <button type="submit">검색</button>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

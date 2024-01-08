@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <title>회원 가입</title>
+    <style>
+        .field-error{
+            border-color: #dc3540;
+            color: #dc3540;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid" style="max-width: 1000px">
+    <div class="text-center py-3">
+        <h3>회원 가입</h3>
+    </div>
+    <form th:action th:object="${memberDto}" method="post">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">오류 메세지</p>
+        </div>
+        <div>
+            <label for="email">로그인 ID</label>
+            <input type="text" id="email" th:field="*{email}" class="form-control">
+            <div class="field-error" th:errors="*{email}" />
+        </div>
+
+        <div>
+            <label for="password">패스워드</label>
+            <input type="password" id="password" th:field="*{password}" class="form-control">
+            <div class="field-error" th:errors="*{password}" />
+        </div>
+
+        <div>
+            <label for="name">이름</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control">
+            <div class="field-error" th:errors="*{name}" />
+        </div>
+
+        <hr class="my-3">
+        <div class="row">
+            <div class="col">
+                <button class="w-50 btn btn-primary btn-lg" type="submit">
+                    가입</button>
+            </div>
+            <div class="col">
+                <button class="w-50 btn btn-secondary btn-lg"
+                        th:onclick="|location.href='@{/}'|"
+                        type="button">취소</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

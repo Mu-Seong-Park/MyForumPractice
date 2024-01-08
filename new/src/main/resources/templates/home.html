@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <title>홈페이지</title>
+</head>
+<body>
+<!-- 공통된 모달 템플릿 포함 -->
+<script src="videoResultModal.html"></script>
+
+<div class="container-fluid" style="max-width: 1000px">
+    <div class="text-center py-3">
+        <h3>홈페이지</h3>
+    </div>
+
+    <div class="text-center py-3">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary w-75"
+                        th:onclick="|location.href='@{/login}'|" >
+                    로그인
+                </button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-secondary w-75"
+                        th:onclick="|location.href='@{/members/sign_up}'|">
+                    회원가입
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <title>영상 업로드</title>
+  <style>
+    .field-error{
+      border-color: #dc3540;
+      color: #dc3540;
+    }
+  </style>
+</head>
+<body>
+<h2>비디오 업로드</h2>
+<form th:action method="post" enctype="multipart/form-data">
+  <input th:type="file" th:name="file
+" accept="video/*" required/>
+  <br/><br/>
+  <button type="submit">Upload</button>
+</form>
+</body>
+</html>

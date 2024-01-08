@@ -1,0 +1,18 @@
+<div id="notificationModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p id="notificationText"></p>
+    </div>
+</div>
+
+<script>
+    function closeModal() {
+        let modal = document.getElementById('notificationModal');
+        modal.style.display = 'none';
+    }
+
+    function openModal() {
+        let modal = document.getElementById('notificationModal');
+        modal.style.display = 'block';
+    }
+</script>
