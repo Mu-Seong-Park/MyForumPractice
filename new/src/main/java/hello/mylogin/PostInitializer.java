@@ -8,7 +8,7 @@ import hello.mylogin.member.Member;
 import hello.mylogin.member.MemberRepository;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 @Component
 public class PostInitializer {

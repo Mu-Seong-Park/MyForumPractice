@@ -8,11 +8,9 @@ import hello.mylogin.service.*;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.client.RestTemplate;
 
-import javax.persistence.EntityManager;
-
+import jakarta.persistence.EntityManager;
 @Configuration
 public class MemberConfig {
     //repository를 리팩토링하기 위해서 빈을 수동 등록한다.

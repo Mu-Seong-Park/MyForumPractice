@@ -66,7 +66,7 @@ public class VideoService {
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(flaskServerUrl, requestEntity, String.class);
 
         // 응답 코드 확인
-        HttpStatus statusCode = responseEntity.getStatusCode();
+        HttpStatusCode statusCode = responseEntity.getStatusCode();
         if (statusCode.is2xxSuccessful()) {
             log.info("Transfer Success!!!");
         } else {
