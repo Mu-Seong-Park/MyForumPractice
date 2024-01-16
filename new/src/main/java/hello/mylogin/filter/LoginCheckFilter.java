@@ -20,7 +20,7 @@ public class LoginCheckFilter implements Filter {
 //        Filter.super.init(filterConfig);
 //    }
 
-    private static final String[] whiteList = {"/","/members/sign_up","/login","/logout","/css/*","/favicon.ico"};
+    private static final String[] whiteList = {"/","/members/sign_up","/login","/logout","/css/*","/favicon.ico","/event"};
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

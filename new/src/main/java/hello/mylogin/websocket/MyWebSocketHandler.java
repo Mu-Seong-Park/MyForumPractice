@@ -7,45 +7,44 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
+
 
 @Slf4j
 public class MyWebSocketHandler extends TextWebSocketHandler {
 
-    @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        // 클라이언트로부터 수신한 텍스트 메시지 처리
-        String receivedMessage = message.getPayload();
-        log.info("Received message: {}",receivedMessage);
-
-        // 받은 메시지를 그대로 클라이언트에게 다시 전송
-        session.sendMessage(new TextMessage("Echo: " + receivedMessage));
-    }
+    private final ConcurrentHashMap<String, WebSocketSession> clients = new ConcurrentHashMap<String, WebSocketSession>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         // WebSocketSession 사용 예제
         String sessionId = session.getId();
         log.info("WebSocket session opened: {}",sessionId);
+        clients.put(sessionId,session);
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-        super.afterConnectionClosed(session, closeStatus);
-
         // 연결이 닫혔을 때의 동작 정의
         String username = session.getPrincipal().getName();
         log.info("WebSocket connection closed for user: {}",username);
+        clients.remove(session.getId());
     }
 
 
     @Override
-    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        super.handleTransportError(session, exception);
-
-        // 전송 에러가 발생했을 때의 동작 정의
-        String username = session.getPrincipal().getName();
-        log.info("WebSocket transport error for user: {}" ,username);
-        exception.printStackTrace();
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        String id = session.getId();  //메시지를 보낸 아이디
+        clients.entrySet().forEach( arg->{
+            if(!arg.getKey().equals(id)) {  //같은 아이디가 아니면 메시지를 전달합니다.
+                try {
+                    arg.getValue().sendMessage(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 }
