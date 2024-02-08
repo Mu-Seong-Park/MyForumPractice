@@ -35,16 +35,11 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        String id = session.getId();  //메시지를 보낸 아이디
-        clients.entrySet().forEach( arg->{
-            if(!arg.getKey().equals(id)) {  //같은 아이디가 아니면 메시지를 전달합니다.
-                try {
-                    arg.getValue().sendMessage(message);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+
+        String payload = message.getPayload();
+        log.info("Received Message : ",payload);
+        session.sendMessage(new TextMessage("Hello, client! I received your message: " + payload));
+
     }
 
 }

@@ -58,7 +58,7 @@ public class MemberConfig {
     }
     @Bean
     public VideoService videoService(ApplicationEventPublisher eventPublisher) {
-        return new VideoService(eventPublisher,restTemplate());
+        return new VideoService(eventPublisher,restTemplate(), memberRepository());
     }
 
 }
