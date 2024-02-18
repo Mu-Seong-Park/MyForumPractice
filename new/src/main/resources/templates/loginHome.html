@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="notify.js"></script> <!-- notify.js 파일을 불러옴 -->
+    <script src="websocket.js"></script>
     <title>로그인 후 홈페이지</title>
 </head>
 <body>
@@ -28,6 +32,7 @@
                         th:onclick="|location.href='@{/forum/list(pageIndex=1,pagingSize=10)}'|" >
                     게시판
                 </button>
+                <div id="msgStack"></div>
             </div>
             <div class="col">
                 <button type="button" class="btn btn-primary w-50"

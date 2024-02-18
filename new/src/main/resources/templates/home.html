@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="notify.js"></script> <!-- notify.js 파일을 불러옴 -->
+    <script src="websocket.js"></script>
     <title>홈페이지</title>
 </head>
 <body>
-<!-- 공통된 모달 템플릿 포함 -->
-<script src="videoResultModal.html"></script>
-
 <div class="container-fluid" style="max-width: 1000px">
     <div class="text-center py-3">
         <h3>홈페이지</h3>
