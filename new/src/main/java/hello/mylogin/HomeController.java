@@ -33,6 +33,7 @@ public class HomeController {
 
 
         model.addAttribute("member",loginMember);
+        log.info("http session : {}",session.getId());
         return "loginHome";
     }
 

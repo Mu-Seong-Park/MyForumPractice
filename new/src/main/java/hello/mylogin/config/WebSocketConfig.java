@@ -1,5 +1,6 @@
 package hello.mylogin.config;
 
+import hello.mylogin.websocket.CustomHandshakeInterceptor;
 import hello.mylogin.websocket.MyWebSocketHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,13 +24,18 @@ public class WebSocketConfig implements WebSocketConfigurer {
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(myWebSocketHandler(),"/alarmEvent")
                 .setAllowedOriginPatterns("*")
-                .addInterceptors(new HttpSessionHandshakeInterceptor())
+                .addInterceptors(customHandshakeInterceptor())
                 .withSockJS();
     }
 
     @Bean
     public MyWebSocketHandler myWebSocketHandler() {
         return new MyWebSocketHandler();
+    }
+
+    @Bean
+    public CustomHandshakeInterceptor customHandshakeInterceptor() {
+        return new CustomHandshakeInterceptor();
     }
 
 //    @Bean

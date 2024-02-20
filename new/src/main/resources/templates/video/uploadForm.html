@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- javascript 파일도 절대 경로로 불러주어야 websocket 연결이 상대경로로 인해 꼬이지 않을 수 있음. 대신,static부분은 applications.properties
+   에서 설정을 해주었기 때문에 static은 넣지 않아도 됨. 넣으면 static/static/js/xxx.js 이런 식으로 동작함.-->
+  <script src="http://localhost:8080/js/websocket.js" defer></script>
   <title>영상 업로드</title>
   <style>
     .field-error{

@@ -30,6 +30,6 @@ public class VideoController {
         videoService.handleFileUploadComplete();
         model.addAttribute("message", "File uploaded successfully!");
         log.info("File uploaded successfully!");
-        return "redirect:/members/info";
+        return "redirect:/";
     }
 }

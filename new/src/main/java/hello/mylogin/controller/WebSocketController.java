@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 
 import java.util.List;
 
@@ -36,17 +38,20 @@ public class WebSocketController {
 
     //임시 데이터를 읽기 위한 임시 메서드
     @PostMapping("/videoResult")
-    public String receiveData(@RequestBody RequestDataDto requestDataDto) {
+    public String receiveData(@RequestBody RequestDataDto requestDataDto) throws Exception {
 
         String userToken = requestDataDto.getAuth();
         String videoResult = requestDataDto.getResults();
 
         log.info("userToken : {} , videoResult : {}",userToken,videoResult);
+        String target = userToken.replace("Bearer GeneratedToken", "").trim();
+        String message ="target : "+target+" videoResult : "+videoResult;
 
+        myWebSocketHandler.sendMessageToClient(Long.parseLong(target),message);
         //카카오톡에 알림을 넣는다던가 그런 식으로 사용할 수 있을 것 같음.
         //혹은 websocket을 통해서 사용자에게 알림이 가도록 설정할 수 있어야 함.
         //redirect는 어차피 flask 서버로 응답하기 때문에 하던 말던 의미가 없음.
-        return "redirect:/";
+        return "redirect:/login";
     }
 
 
