@@ -34,5 +34,5 @@ CyberCesco 프로젝트와 연계중
 12. 포스트 제목 검색한 결과 Paging
 13. FLASK 서버로 비디오를 전송할 수 있는 시스템
 14. 회원정보 수정 및 확인
-15. FLASK 서버에서 비디오 검사 결과를 POST 메서드를 통해서 Spring 서버로 요청하고 결과를 Spring 서버에서 WebSocket을 통해 해당 사용자에게 실시간으로 전송한다.
+15. FLASK 서버에서 비디오 검사 결과를 POST 메서드를 통해서 Spring 서버로 요청하고 결과를 Spring 서버에서 WebSocket을 통해 해당 사용자의 브라우저 console에 실시간으로 출력한다.
 
